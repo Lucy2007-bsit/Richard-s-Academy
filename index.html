@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Richard's Academy — Holographic Study Interface v2.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="homepage.css">
+</head>
+<body>
+
+  <!-- Animated background -->
+  <div class="grid-bg" aria-hidden="true">
+    <div class="grid-lines"></div>
+    <div class="light-beam-l"></div>
+    <div class="light-beam-r"></div>
+  </div>
+
+  <!-- ========== HAMBURGER MENU OVERLAY ========== -->
+  <div class="nav-overlay" id="navOverlay" aria-hidden="true">
+    <div class="nav-panel" role="dialog" aria-label="Navigation menu">
+      <div class="nav-header">
+        <span class="nav-title">[ MENU ]</span>
+        <button class="nav-close" onclick="closeMenu()" aria-label="Close menu">✕</button>
+      </div>
+      <nav class="nav-links">
+        <a class="nav-link" href="#" onclick="closeMenu()">
+          <span class="nav-link-icon">◈</span> Sign Up / Log In
+        </a>
+        <a class="nav-link" href="#" onclick="closeMenu()">
+          <span class="nav-link-icon">◈</span> About Us
+        </a>
+        <a class="nav-link" href="#" onclick="closeMenu()">
+          <span class="nav-link-icon">◈</span> FAQ
+        </a>
+        <a class="nav-link" href="#" onclick="closeMenu()">
+          <span class="nav-link-icon">◈</span> Contact
+        </a>
+      </nav>
+      <div class="nav-footer">System Status: ONLINE</div>
+    </div>
+  </div>
+
+  <!-- ========== TOP NAV BAR (hamburger, always visible) ========== -->
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <span class="top-bar-logo">R/A</span>
+      <button class="hamburger-btn" id="hamburgerBtn" onclick="openMenu()" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MUSIC BAR (desktop: fixed below nav, hidden on mobile) -->
+  <div class="music-bar" id="musicBar">
+    <button class="mbar-btn" id="musicPlayBtn" onclick="toggleMusic()" aria-label="Play / Pause">▶</button>
+    <div class="mbar-waveform" id="mbarWave">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="mbar-info">
+      <div class="mbar-title">cyberpunk.theme</div>
+      <div class="mbar-status" id="mbarStatus">PAUSED</div>
+    </div>
+    <div class="mbar-progress">
+      <div class="mbar-progress-fill" id="mbarProgress"></div>
+    </div>
+  </div>
+
+  <!-- ========== MAIN LAYOUT ========== -->
+  <div class="page">
+
+    <!-- LUCY (desktop sidebar) -->
+    <aside class="char-aside left" aria-label="Lucy guide">
+      <div class="char-unit">
+        <div class="char-name lucy">LUCY</div>
+        <div class="char-bubble">Welcome back, student. Ready to level up?</div>
+        <div class="char-frame lucy">
+          <div class="char-frame-overlay"></div>
+          <img src="images/lucy2.png" alt="Lucy — holographic interface guide">
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main" id="main-content">
+
+      <header class="header">
+        <h1 class="title">RICHARD'S ACADEMY</h1>
+        <p class="subtitle">[ HOLOGRAPHIC STUDY INTERFACE v2.0 ]</p>
+      </header>
+
+      <!-- Search -->
+      <div class="search-wrap" role="search">
+        <div class="search-glow" aria-hidden="true"></div>
+        <div class="search-inner">
+          <div class="search-row">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input
+              class="search-input"
+              type="text"
+              id="searchInput"
+              placeholder="Search subjects, resources... [HOLOGRAM ACTIVE]"
+              aria-label="Search subjects and resources"
+              oninput="filterSubjects(this.value)"
+            >
+            <button class="esc-btn" onclick="clearSearch()" aria-label="Clear search">ESC</button>
+          </div>
+          <div class="search-scan" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <!-- Year Blocks -->
+      <div class="years" id="yearsContainer">
+
+        <!-- 1ST YEAR -->
+        <div class="year-block y1" id="year1">
+          <div class="year-glow" style="background:#00ffff" aria-hidden="true"></div>
+          <div class="year-inner" onclick="toggleYear('year1')" role="button" tabindex="0" aria-expanded="false" aria-controls="content-year1">
+            <div class="yc-tl" aria-hidden="true"></div>
+            <div class="yc-br" aria-hidden="true"></div>
+            <div class="year-dot-bg" style="background-image:radial-gradient(circle,#00ffff 1px,transparent 1px);background-size:30px 30px" aria-hidden="true"></div>
+            <div class="year-header">
+              <div class="year-num">1</div>
+              <div class="year-info">
+                <div class="year-label">1st YEAR</div>
+                <div class="year-sub">ACADEMIC CYCLE 1</div>
+              </div>
+              <span class="chevron" aria-hidden="true">⌄</span>
+            </div>
+          </div>
+          <div class="year-content" id="content-year1">
+            <div class="semesters">
+              <div class="sem-block locked" aria-disabled="true">
+                <div class="sem-header">
+                  <span class="sem-icon" aria-hidden="true">📅</span>
+                  <div>
+                    <div class="sem-label">1st Semester</div>
+                    <div class="sem-status">LOCKED</div>
+                  </div>
+                  <span class="sem-lock-icon" aria-hidden="true">🔒</span>
+                </div>
+              </div>
+              <div class="sem-block available" id="sem-y1-s2" onclick="toggleSem('sem-y1-s2','subjects-y1-s2')" role="button" tabindex="0" aria-expanded="false" aria-controls="subjects-y1-s2">
+                <div class="sem-header">
+                  <span class="sem-icon" aria-hidden="true">📅</span>
+                  <div>
+                    <div class="sem-label">2nd Semester</div>
+                    <div class="sem-status">AVAILABLE</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="subjects-wrap" id="subjects-y1-s2">
+              <div class="subjects-grid" id="subjectsGrid">
+                <div class="subject-card" onclick="openSubject('NSTP112')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">NSTP112</div><div class="subj-type">SUBJECT MODULE</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('CRWT111')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">CRWT111</div><div class="subj-type">SUBJECT MODULE</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('INPR111')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">INPR111</div><div class="subj-type">SUBJECT MODULE</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('MATM111')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">MATM111</div><div class="subj-type">SUBJECT MODULE</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('PHED122')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">PHED122</div><div class="subj-type">SUBJECT MODULE</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('PURC111')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">PURC111</div><div class="subj-type">SUBJECT MODULE</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('VRTS112')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">VRTS112</div><div class="subj-type">SUBJECT MODULE</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('WBDV111')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">WBDV111</div><div class="subj-type">SUBJECT MODULE</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('PCDL111')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">PCDL111</div><div class="subj-type">SUBJECT MODULE</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2ND YEAR -->
+        <div class="year-block y2" id="year2">
+          <div class="year-glow" style="background:#ff00ff" aria-hidden="true"></div>
+          <div class="year-inner" onclick="toggleYear('year2')" role="button" tabindex="0" aria-expanded="false" aria-controls="content-year2">
+            <div class="yc-tl" aria-hidden="true"></div><div class="yc-br" aria-hidden="true"></div>
+            <div class="year-dot-bg" style="background-image:radial-gradient(circle,#ff00ff 1px,transparent 1px);background-size:30px 30px" aria-hidden="true"></div>
+            <div class="year-header">
+              <div class="year-num">2</div>
+              <div class="year-info"><div class="year-label">2nd YEAR</div><div class="year-sub">ACADEMIC CYCLE 2</div></div>
+              <span class="chevron" aria-hidden="true">⌄</span>
+            </div>
+          </div>
+          <div class="year-content" id="content-year2">
+            <div class="semesters">
+              <div class="sem-block locked" aria-disabled="true"><div class="sem-header"><span class="sem-icon">📅</span><div><div class="sem-label">1st Semester</div><div class="sem-status">LOCKED</div></div><span class="sem-lock-icon">🔒</span></div></div>
+              <div class="sem-block locked" aria-disabled="true"><div class="sem-header"><span class="sem-icon">📅</span><div><div class="sem-label">2nd Semester</div><div class="sem-status">LOCKED</div></div><span class="sem-lock-icon">🔒</span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3RD YEAR -->
+        <div class="year-block y3" id="year3">
+          <div class="year-glow" style="background:#ffcc00" aria-hidden="true"></div>
+          <div class="year-inner" onclick="toggleYear('year3')" role="button" tabindex="0" aria-expanded="false" aria-controls="content-year3">
+            <div class="yc-tl" aria-hidden="true"></div><div class="yc-br" aria-hidden="true"></div>
+            <div class="year-dot-bg" style="background-image:radial-gradient(circle,#ffcc00 1px,transparent 1px);background-size:30px 30px" aria-hidden="true"></div>
+            <div class="year-header">
+              <div class="year-num">3</div>
+              <div class="year-info"><div class="year-label">3rd YEAR</div><div class="year-sub">ACADEMIC CYCLE 3</div></div>
+              <span class="chevron" aria-hidden="true">⌄</span>
+            </div>
+          </div>
+          <div class="year-content" id="content-year3">
+            <div class="semesters">
+              <div class="sem-block locked" aria-disabled="true"><div class="sem-header"><span class="sem-icon">📅</span><div><div class="sem-label">1st Semester</div><div class="sem-status">LOCKED</div></div><span class="sem-lock-icon">🔒</span></div></div>
+              <div class="sem-block locked" aria-disabled="true"><div class="sem-header"><span class="sem-icon">📅</span><div><div class="sem-label">2nd Semester</div><div class="sem-status">LOCKED</div></div><span class="sem-lock-icon">🔒</span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4TH YEAR -->
+        <div class="year-block y4" id="year4">
+          <div class="year-glow" style="background:#00ff88" aria-hidden="true"></div>
+          <div class="year-inner" onclick="toggleYear('year4')" role="button" tabindex="0" aria-expanded="false" aria-controls="content-year4">
+            <div class="yc-tl" aria-hidden="true"></div><div class="yc-br" aria-hidden="true"></div>
+            <div class="year-dot-bg" style="background-image:radial-gradient(circle,#00ff88 1px,transparent 1px);background-size:30px 30px" aria-hidden="true"></div>
+            <div class="year-header">
+              <div class="year-num">4</div>
+              <div class="year-info"><div class="year-label">4th YEAR</div><div class="year-sub">ACADEMIC CYCLE 4</div></div>
+              <span class="chevron" aria-hidden="true">⌄</span>
+            </div>
+          </div>
+          <div class="year-content" id="content-year4">
+            <div class="semesters">
+              <div class="sem-block locked" aria-disabled="true"><div class="sem-header"><span class="sem-icon">📅</span><div><div class="sem-label">1st Semester</div><div class="sem-status">LOCKED</div></div><span class="sem-lock-icon">🔒</span></div></div>
+              <div class="sem-block locked" aria-disabled="true"><div class="sem-header"><span class="sem-icon">📅</span><div><div class="sem-label">2nd Semester</div><div class="sem-status">LOCKED</div></div><span class="sem-lock-icon">🔒</span></div></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /years -->
+
+      <p class="footer-status">System Status: ONLINE &nbsp;|&nbsp; Network: SECURE &nbsp;|&nbsp; Uplink: STABLE</p>
+
+    </main><!-- /main -->
+
+    <!-- REBECCA (desktop sidebar) -->
+    <aside class="char-aside right" aria-label="Rebecca guide">
+      <div class="char-unit">
+        <div class="char-name rebecca">REBECCA</div>
+        <div class="char-bubble">Let's blow through these subjects!</div>
+        <div class="char-frame rebecca">
+          <div class="char-frame-overlay"></div>
+          <img src="images/rebecca2.png" alt="Rebecca — holographic interface guide">
+        </div>
+      </div>
+    </aside>
+
+  </div><!-- /page -->
+
+  <!-- ========== MOBILE LUCY (bottom peek, mobile only) ========== -->
+  <div class="mobile-lucy" aria-label="Lucy guide" aria-hidden="true">
+    <div class="mobile-lucy-bubble">
+      <span>Welcome back, student.<br>Ready to level up?</span>
+      <div class="bubble-dot"></div>
+    </div>
+    <div class="mobile-lucy-img">
+      <img src="images/lucy2.png" alt="Lucy">
+    </div>
+  </div>
+
+  <!-- XP BAR (fixed bottom) -->
+  <div class="xp-bar-fixed" role="status" aria-label="Experience progress">
+    <div class="xp-row">
+      <span class="xp-level">LEVEL 2</span>
+      <span class="xp-count">6,700 / 10,000 XP</span>
+    </div>
+    <div class="xp-track" aria-label="XP progress bar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100">
+      <div class="xp-grid" aria-hidden="true"></div>
+      <div class="xp-fill" id="xpFill">
+        <div class="xp-shine" aria-hidden="true"></div>
+      </div>
+    </div>
+    <p class="sys-status" aria-hidden="true">System Status: ONLINE &nbsp;|&nbsp; Network: SECURE &nbsp;|&nbsp; Uplink: STABLE</p>
+  </div>
+
+  <!-- SPLASH OVERLAY + TOAST (4th year max level) -->
+  <div class="splash-overlay" id="splashOverlay" onclick="closeSplash()"></div>
+  <div class="splash-toast" id="splashToast" role="dialog" aria-modal="true" aria-label="Congratulations">
+    <div class="splash-corner tl"></div>
+    <div class="splash-corner tr"></div>
+    <div class="splash-corner bl"></div>
+    <div class="splash-corner br"></div>
+    <div class="splash-stars">★ ★ ★</div>
+    <div class="splash-toast-title">MAX LEVEL</div>
+    <div class="splash-toast-sub">[ ACADEMIC CYCLE 4 — COMPLETE ]</div>
+    <div class="splash-divider"></div>
+    <div class="splash-toast-msg">Congrats, Kupal! 🎉</div>
+    <button class="splash-toast-close" onclick="closeSplash()">[ DISMISS ]</button>
+  </div>
+
+  
+
+  <script src="script.js"></script>
+</body>
+</html>
