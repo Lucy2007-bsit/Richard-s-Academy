@@ -271,127 +271,125 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
+  overflow: visible;
 }
 
-/* ── Name: absolute, near top of viewport column ── */
+/* ── Name + Bubble: positioned INSIDE .char-frame, near top of image ── */
 .char-name {
   position: absolute;
   top: 6%;
   left: 0; right: 0;
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: clamp(11px, 1.2vw, 16px);
   font-weight: 900;
-  letter-spacing: 5px;
+  letter-spacing: 4px;
   text-align: center;
   z-index: 10;
   pointer-events: none;
 }
-.char-name.lucy    { color: var(--cyan);    text-shadow: 0 0 18px var(--cyan),    0 0 40px rgba(0,255,255,0.4); }
-.char-name.rebecca { color: var(--magenta); text-shadow: 0 0 18px var(--magenta), 0 0 40px rgba(255,0,255,0.4); }
+.char-name.lucy    { color: var(--cyan);    text-shadow: 0 0 16px var(--cyan),    0 0 35px rgba(0,255,255,0.4); }
+.char-name.rebecca { color: var(--magenta); text-shadow: 0 0 16px var(--magenta), 0 0 35px rgba(255,0,255,0.4); }
 
-/* ── Bubble: just below name ── */
+/* ── Bubble: just below name, inside the image frame ── */
 .char-bubble {
   position: absolute;
-  top: calc(6% + 28px);
+  top: calc(6% + clamp(18px, 2vw, 26px));
   left: 4%; right: 4%;
   z-index: 10;
-  padding: 5px 8px;
+  padding: clamp(4px, 0.5vw, 7px) clamp(6px, 0.7vw, 10px);
   font-family: var(--font-mono);
-  font-size: 10px;
-  line-height: 1.4;
+  font-size: clamp(8px, 0.75vw, 11px);
+  line-height: 1.5;
   text-align: center;
   animation: holoBubble 3s ease-in-out infinite;
   pointer-events: none;
+  /* holographic glass style */
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 .char-aside.left  .char-bubble {
   color: var(--cyan);
-  border: 1px solid rgba(0,255,255,0.4);
-  background: linear-gradient(135deg, rgba(0,255,255,0.06), rgba(0,0,0,0.6));
-  text-shadow: 0 0 8px var(--cyan);
-  box-shadow: 0 0 10px rgba(0,255,255,0.1), inset 0 0 10px rgba(0,255,255,0.04);
+  border: 1px solid rgba(0,255,255,0.5);
+  background: linear-gradient(135deg, rgba(0,255,255,0.08), rgba(0,0,0,0.55));
+  text-shadow: 0 0 10px var(--cyan), 0 0 20px rgba(0,255,255,0.3);
+  box-shadow: 0 0 14px rgba(0,255,255,0.15), inset 0 0 12px rgba(0,255,255,0.05),
+              0 0 1px rgba(0,255,255,0.8);
 }
 .char-aside.right .char-bubble {
   color: var(--magenta);
-  border: 1px solid rgba(255,0,255,0.4);
-  background: linear-gradient(135deg, rgba(255,0,255,0.06), rgba(0,0,0,0.6));
-  text-shadow: 0 0 8px var(--magenta);
-  box-shadow: 0 0 10px rgba(255,0,255,0.1), inset 0 0 10px rgba(255,0,255,0.04);
+  border: 1px solid rgba(255,0,255,0.5);
+  background: linear-gradient(135deg, rgba(255,0,255,0.08), rgba(0,0,0,0.55));
+  text-shadow: 0 0 10px var(--magenta), 0 0 20px rgba(255,0,255,0.3);
+  box-shadow: 0 0 14px rgba(255,0,255,0.15), inset 0 0 12px rgba(255,0,255,0.05),
+              0 0 1px rgba(255,0,255,0.8);
 }
 
 @keyframes holoBubble {
-  0%,100% { opacity: 1;    transform: translateY(0);    filter: brightness(1); }
-  30%     { opacity: 0.85; transform: translateY(-2px); filter: brightness(1.15); }
-  50%     { opacity: 1;    transform: translateY(0);    filter: brightness(0.95); }
-  70%     { opacity: 0.9;  transform: translateY(1px);  filter: brightness(1.1); }
+  0%,100% { opacity: 1;    transform: translateY(0);     filter: brightness(1);    }
+  25%     { opacity: 0.7;  transform: translateY(-1px);  filter: brightness(1.3) saturate(1.5); }
+  40%     { opacity: 1;    transform: translateY(0);     filter: brightness(0.9);  }
+  60%     { opacity: 0.85; transform: translateY(1px);   filter: brightness(1.15); }
+  75%     { opacity: 1;    transform: translateY(0);     filter: brightness(1);    }
+  /* glitch flicker */
+  88%     { opacity: 0.3;  filter: brightness(2) hue-rotate(30deg); }
+  89%     { opacity: 1;    filter: brightness(1); }
+  90%     { opacity: 0.5;  filter: brightness(1.5); }
+  91%     { opacity: 1;    filter: brightness(1); }
 }
 
 /* ── char-frame: absolute, breaks out of column, tall & wide ── */
 .char-frame {
   position: absolute;
-  bottom: 80px;          /* sits above XP bar */
-  width: 380px;          /* wider than the 240px column — bleeds into content */
-  height: 82vh;          /* tall — fills most of viewport */
+  bottom: 80px;
+  width: clamp(200px, 20vw, 380px);
+  height: clamp(52vh, 74vh, 86vh);
   border: none;
   background: transparent;
   overflow: visible;
   z-index: 5;
 }
 
-/* Lucy: anchor to left edge, bleed right */
-.char-aside.left  .char-frame {
-  left: -40px;
+/* Lucy: push image to the LEFT — away from the cards.
+   The right edge of the image stays at least 20px from the column's right edge */
+.char-aside.left .char-frame {
+  right: 20px;   /* gap from card edge = column right boundary */
+  left: auto;
 }
 
-/* Rebecca: anchor to right edge, bleed left */
+/* Rebecca: push image to the RIGHT — away from the cards.
+   The left edge of the image stays at least 20px from the column's left edge */
 .char-aside.right .char-frame {
-  right: -40px;
+  left: 20px;    /* gap from card edge = column left boundary */
+  right: auto;
 }
 
-.char-frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: bottom center;
-  display: block;
-  transform-origin: bottom center;
-}
+/* .char-frame img styles moved into animation rules above */
 
-/* Bottom fade — blends feet into background */
+/* Subtle bottom fade only — very light so chars look clean */
 .char-frame::before {
   content: '';
   position: absolute;
-  bottom: 0; left: -5%; right: -5%;
-  height: 28%;
+  bottom: 0; left: 0; right: 0;
+  height: 20%;
   background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
   z-index: 2;
   pointer-events: none;
 }
 
-/* Scanline overlay */
+/* No scanline overlay — removed to keep image clean */
 .char-frame::after {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0; left: -5%; right: -5%;
-  background-image: repeating-linear-gradient(
-    0deg, transparent, transparent 3px,
-    rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px
-  );
-  z-index: 3;
-  pointer-events: none;
+  display: none;
 }
 
 .char-frame-overlay {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 4;
+  display: none; /* overlay removed — was causing colour tint on characters */
 }
-.char-frame.lucy    .char-frame-overlay { background: linear-gradient(to right, rgba(0,255,255,0.05), transparent 70%); }
-.char-frame.rebecca .char-frame-overlay { background: linear-gradient(to left,  rgba(255,0,255,0.05), transparent 70%); }
 
-/* ── Glitch on img element — no container clipping ── */
-.char-frame.lucy    img { animation: glitchL 7s infinite, floatL 5s ease-in-out infinite; }
-.char-frame.rebecca img { animation: glitchR 8s infinite, floatR 5.5s ease-in-out infinite; }
+/* Float on frame, glitch on img — keeps them independent */
+.char-frame.lucy    { animation: floatL 5s ease-in-out infinite; }
+.char-frame.rebecca { animation: floatR 5.5s ease-in-out infinite; }
+.char-frame.lucy    img { animation: glitchL 7s infinite; width: 100%; height: 100%; object-fit: contain; object-position: bottom center; display: block; transform-origin: bottom center; }
+.char-frame.rebecca img { animation: glitchR 8s infinite; width: 100%; height: 100%; object-fit: contain; object-position: bottom center; display: block; transform-origin: bottom center; }
 
 @keyframes glitchL {
   0%,88%,100% { transform: none;                        filter: none; }
