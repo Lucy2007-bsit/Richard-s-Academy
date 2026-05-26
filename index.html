@@ -343,6 +343,52 @@
 
   
 
+
+  <!-- ========== FILE VIEWER MODAL ========== -->
+  <div class="viewer-modal" id="viewerModal" onclick="handleViewerClick(event)" aria-modal="true" role="dialog" aria-label="Subject module viewer">
+    <div class="viewer-panel">
+      <div class="viewer-header">
+        <div class="viewer-header-left">
+          <span class="viewer-icon">◈</span>
+          <span class="viewer-title" id="viewerModalTitle">Module Viewer</span>
+        </div>
+        <button class="viewer-close" onclick="closeViewerModal()" aria-label="Close viewer">✕</button>
+      </div>
+      <div class="viewer-body">
+        <div class="viewer-loader" id="viewerLoader">
+          <div class="viewer-spinner"></div>
+          <span>LOADING MODULE...</span>
+        </div>
+        <iframe
+          id="viewerIframe"
+          class="viewer-iframe"
+          src=""
+          frameborder="0"
+          allowfullscreen
+          title="Module content viewer"
+        ></iframe>
+      </div>
+      <div class="viewer-footer">
+        <span class="viewer-status">[ GOOGLE DRIVE SECURE VIEWER ]</span>
+        <a id="viewerOpenLink" href="#" target="_blank" rel="noopener" class="viewer-open-btn" onclick="openInDrive()">↗ OPEN IN DRIVE</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== NO FILE YET MODAL ========== -->
+  <div class="viewer-modal no-file-modal" id="noFileModal" onclick="handleNoFileClick(event)" aria-modal="true" role="dialog" aria-label="No file available">
+    <div class="no-file-panel">
+      <div class="splash-corner tl"></div>
+      <div class="splash-corner tr"></div>
+      <div class="splash-corner bl"></div>
+      <div class="splash-corner br"></div>
+      <div class="no-file-icon">⚠</div>
+      <div class="no-file-title">MODULE NOT YET UPLOADED</div>
+      <div class="no-file-code">[ <span id="noFileCode">???</span> ]</div>
+      <div class="no-file-msg">This subject module hasn't been linked yet.<br>Add the Google Drive URL in <code>script.js</code>.</div>
+      <button class="splash-toast-close" onclick="closeNoFileModal()" style="margin-top:1rem">[ CLOSE ]</button>
+    </div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
