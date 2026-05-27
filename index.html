@@ -11,6 +11,87 @@
 </head>
 <body>
 
+  <!-- ========== LOGIN GATE ========== -->
+  <div class="login-gate" id="loginGate">
+    <div class="login-scanline" aria-hidden="true"></div>
+
+    <!-- Background grid -->
+    <div class="grid-bg" aria-hidden="true">
+      <div class="grid-lines"></div>
+    </div>
+
+    <div class="login-container">
+
+      <!-- Logo / Title -->
+      <div class="login-header">
+        <div class="login-logo">◈</div>
+        <h1 class="login-title">RICHARD'S ACADEMY</h1>
+        <p class="login-sub">[ HOLOGRAPHIC STUDY INTERFACE v2.0 ]</p>
+        <p class="login-notice">AUTHENTICATION REQUIRED TO ACCESS SYSTEM</p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="login-tabs">
+        <button class="login-tab active" id="gate-tab-login"  onclick="switchGateTab('login')">LOG IN</button>
+        <button class="login-tab"        id="gate-tab-signup" onclick="switchGateTab('signup')">SIGN UP</button>
+      </div>
+
+      <!-- LOG IN FORM -->
+      <div class="login-form" id="gate-form-login">
+        <div class="form-group">
+          <label class="form-label">STUDENT ID / EMAIL</label>
+          <input class="form-input" type="text" id="gate-login-id" placeholder="Enter your ID or email" autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label class="form-label">PASSWORD</label>
+          <input class="form-input" type="password" id="gate-login-pass" placeholder="Enter your password" autocomplete="current-password">
+        </div>
+        <div class="login-error" id="gate-login-error"></div>
+        <div class="form-row">
+          <label class="form-check">
+            <input type="checkbox" id="gate-remember"> <span>Remember me</span>
+          </label>
+          <a href="#" class="form-link" onclick="switchGateTab('signup')">Create account</a>
+        </div>
+        <button class="form-btn primary" onclick="gateLogin()">[ ACCESS SYSTEM ]</button>
+      </div>
+
+      <!-- SIGN UP FORM -->
+      <div class="login-form hidden" id="gate-form-signup">
+        <div class="form-group">
+          <label class="form-label">FULL NAME</label>
+          <input class="form-input" type="text" id="gate-signup-name" placeholder="Enter your full name" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">STUDENT ID</label>
+          <input class="form-input" type="text" id="gate-signup-id" placeholder="Enter your student ID">
+        </div>
+        <div class="form-group">
+          <label class="form-label">EMAIL</label>
+          <input class="form-input" type="email" id="gate-signup-email" placeholder="Enter your email" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label">PASSWORD</label>
+          <input class="form-input" type="password" id="gate-signup-pass" placeholder="Create a password (min 6 chars)" autocomplete="new-password">
+        </div>
+        <div class="form-group">
+          <label class="form-label">CONFIRM PASSWORD</label>
+          <input class="form-input" type="password" id="gate-signup-pass2" placeholder="Confirm your password" autocomplete="new-password">
+        </div>
+        <div class="login-error" id="gate-signup-error"></div>
+        <button class="form-btn primary" onclick="gateSignup()">[ INITIALIZE PROFILE ]</button>
+        <p class="form-alt" style="margin-top:0.8rem">Already have an account? <a href="#" class="form-link" onclick="switchGateTab('login')">Log In</a></p>
+      </div>
+
+      <p class="login-footer">[ SYSTEM SECURED · AUTHORIZED USERS ONLY ]</p>
+    </div>
+  </div>
+  <!-- /LOGIN GATE -->
+
+
+  <!-- ========== MAIN APP (hidden until logged in) ========== -->
+  <div class="main-app" id="mainApp" style="display:none">
+
   <!-- Animated background -->
   <div class="grid-bg" aria-hidden="true">
     <div class="grid-lines"></div>
@@ -26,17 +107,17 @@
         <button class="nav-close" onclick="closeMenu()" aria-label="Close menu">✕</button>
       </div>
       <nav class="nav-links">
-        <a class="nav-link" href="#" onclick="closeMenu()">
+        <a class="nav-link" href="#" onclick="openPage('auth')">
           <span class="nav-link-icon">◈</span> Sign Up / Log In
         </a>
-        <a class="nav-link" href="#" onclick="closeMenu()">
+        <a class="nav-link" href="#" onclick="openPage('about')">
           <span class="nav-link-icon">◈</span> About Us
         </a>
-        <a class="nav-link" href="#" onclick="closeMenu()">
+        <a class="nav-link" href="#" onclick="openPage('faq')">
           <span class="nav-link-icon">◈</span> FAQ
         </a>
-        <a class="nav-link" href="#" onclick="closeMenu()">
-          <span class="nav-link-icon">◈</span> Contact
+        <a class="nav-link" href="#" onclick="openPage('contact')">
+          <span class="nav-link-icon">◈</span> Contact Us
         </a>
       </nav>
       <div class="nav-footer">System Status: ONLINE</div>
@@ -67,7 +148,7 @@
       <span></span><span></span><span></span><span></span><span></span>
     </div>
     <div class="mbar-info">
-      <div class="mbar-title">cyberpunk.theme</div>
+      <div class="mbar-title">cyberpunk theme</div>
       <div class="mbar-status" id="mbarStatus">PAUSED</div>
     </div>
     <div class="mbar-progress">
@@ -139,14 +220,13 @@
           </div>
           <div class="year-content" id="content-year1">
             <div class="semesters">
-              <div class="sem-block locked" aria-disabled="true">
+              <div class="sem-block available" id="sem-y1-s1" onclick="toggleSem('sem-y1-s1','subjects-y1-s1')" role="button" tabindex="0" aria-expanded="false" aria-controls="subjects-y1-s1">
                 <div class="sem-header">
                   <span class="sem-icon" aria-hidden="true">📅</span>
                   <div>
                     <div class="sem-label">1st Semester</div>
-                    <div class="sem-status">LOCKED</div>
+                    <div class="sem-status">AVAILABLE</div>
                   </div>
-                  <span class="sem-lock-icon" aria-hidden="true">🔒</span>
                 </div>
               </div>
               <div class="sem-block available" id="sem-y1-s2" onclick="toggleSem('sem-y1-s2','subjects-y1-s2')" role="button" tabindex="0" aria-expanded="false" aria-controls="subjects-y1-s2">
@@ -156,6 +236,64 @@
                     <div class="sem-label">2nd Semester</div>
                     <div class="sem-status">AVAILABLE</div>
                   </div>
+                </div>
+              </div>
+            </div><!-- /semesters -->
+            <div class="subjects-wrap" id="subjects-y1-s1">
+              <div class="subjects-grid">
+                <div class="subject-card" onclick="openSubject('NSTP111')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">NSTP111</div><div class="subj-type">CIVIC WELFARE AND TRAINING SERVICES 1</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('FOPR111')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">FOPR111</div><div class="subj-type">FUNDAMENTALS OF PROGRAMMING W/ LAB</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('ITCL112')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">ITCL112</div><div class="subj-type">INTRODUCTION TO COMPUTING W/ LAB</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('PHED121')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">PHED121</div><div class="subj-type">PATHFit 1: MOVEMENT COMPETENCY TRAINING</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('STAS111')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">STAS111</div><div class="subj-type">SCIENCE, TECHNOLOGY AND SOCIETY</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('TCWD121')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">TCWD121</div><div class="subj-type">THE CONTEMPORARY WORLD WITH PEACE STUDIES</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('UNDS111')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">UNDS111</div><div class="subj-type">UNDERSTANDING THE SELF</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('VRTS111')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">VRTS111</div><div class="subj-type">VERITAS ET MISERICORDIA 1</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('ENGL111')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">ENGL111</div><div class="subj-type">COLLEGE ENGLISH (ELECTIVE)</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
                 </div>
               </div>
             </div>
@@ -347,48 +485,309 @@
   <!-- ========== FILE VIEWER MODAL ========== -->
   <div class="viewer-modal" id="viewerModal" onclick="handleViewerClick(event)" aria-modal="true" role="dialog" aria-label="Subject module viewer">
     <div class="viewer-panel">
+
+      <!-- Header -->
       <div class="viewer-header">
         <div class="viewer-header-left">
           <span class="viewer-icon">◈</span>
           <span class="viewer-title" id="viewerModalTitle">Module Viewer</span>
         </div>
-        <button class="viewer-close" onclick="closeViewerModal()" aria-label="Close viewer">✕</button>
+        <div class="viewer-header-right">
+          <a id="viewerOpenBtn" href="#" target="_blank" rel="noopener" class="viewer-open-btn" aria-label="Open file in new tab">↗ OPEN FILE</a>
+          <button class="viewer-close" onclick="closeViewerModal()" aria-label="Close viewer">✕</button>
+        </div>
       </div>
-      <div class="viewer-body">
+
+      <!-- File tabs (shown when subject has multiple files) -->
+      <div class="viewer-tabs" id="viewerTabs"></div>
+
+      <!-- Body: dynamic content injected by JS -->
+      <div class="viewer-body" id="viewerBody">
         <div class="viewer-loader" id="viewerLoader">
           <div class="viewer-spinner"></div>
           <span>LOADING MODULE...</span>
         </div>
-        <iframe
-          id="viewerIframe"
-          class="viewer-iframe"
-          src=""
-          frameborder="0"
-          allowfullscreen
-          title="Module content viewer"
-        ></iframe>
       </div>
+
+      <!-- Footer -->
       <div class="viewer-footer">
-        <span class="viewer-status">[ GOOGLE DRIVE SECURE VIEWER ]</span>
-        <a id="viewerOpenLink" href="#" target="_blank" rel="noopener" class="viewer-open-btn" onclick="openInDrive()">↗ OPEN IN DRIVE</a>
+        <span class="viewer-status">[ HOLOGRAPHIC MODULE VIEWER v1.0 ]</span>
+        <span class="viewer-hint">ESC or click outside to close</span>
       </div>
+
     </div>
   </div>
 
   <!-- ========== NO FILE YET MODAL ========== -->
-  <div class="viewer-modal no-file-modal" id="noFileModal" onclick="handleNoFileClick(event)" aria-modal="true" role="dialog" aria-label="No file available">
+  <div class="viewer-modal no-file-modal" id="noFileModal" onclick="handleNoFileClick(event)" aria-modal="true" role="dialog" aria-label="Module not yet available">
     <div class="no-file-panel">
       <div class="splash-corner tl"></div>
       <div class="splash-corner tr"></div>
       <div class="splash-corner bl"></div>
       <div class="splash-corner br"></div>
       <div class="no-file-icon">⚠</div>
-      <div class="no-file-title">MODULE NOT YET UPLOADED</div>
+      <div class="no-file-title" id="noFileTitle">MODULE NOT YET UPLOADED</div>
       <div class="no-file-code">[ <span id="noFileCode">???</span> ]</div>
-      <div class="no-file-msg">This subject module hasn't been linked yet.<br>Add the Google Drive URL in <code>script.js</code>.</div>
-      <button class="splash-toast-close" onclick="closeNoFileModal()" style="margin-top:1rem">[ CLOSE ]</button>
+      <div class="no-file-desc" id="noFileDesc"></div>
+      <div class="no-file-msg">
+        Drop your PDF or PPTX into the <code>files/</code> folder,<br>
+        then set the path in <code>script.js → SUBJECT_FILES</code>.
+      </div>
+      <button class="splash-toast-close" onclick="closeNoFileModal()" style="margin-top:1.2rem">[ CLOSE ]</button>
     </div>
   </div>
+
+  <!-- ========== PAGE MODALS ========== -->
+
+  <!-- SIGN UP / LOG IN -->
+  <div class="page-modal" id="page-auth" role="dialog" aria-modal="true" aria-label="Sign Up or Log In" onclick="handlePageClick(event,'auth')">
+    <div class="page-panel">
+      <div class="page-header">
+        <span class="page-header-title">[ AUTHENTICATION ]</span>
+        <button class="page-close" onclick="closePage('auth')" aria-label="Close">✕</button>
+      </div>
+      <div class="page-body">
+
+        <!-- Tabs -->
+        <div class="auth-tabs">
+          <button class="auth-tab active" id="tab-login"  onclick="switchAuthTab('login')">LOG IN</button>
+          <button class="auth-tab"        id="tab-signup" onclick="switchAuthTab('signup')">SIGN UP</button>
+        </div>
+
+        <!-- Log In Form -->
+        <div class="auth-form" id="form-login">
+          <div class="auth-welcome">
+            <div class="auth-icon">⬡</div>
+            <p class="auth-subtitle">WELCOME BACK, STUDENT</p>
+          </div>
+          <div class="form-group">
+            <label class="form-label">STUDENT ID / EMAIL</label>
+            <input class="form-input" type="text" placeholder="Enter your ID or email" autocomplete="username">
+          </div>
+          <div class="form-group">
+            <label class="form-label">PASSWORD</label>
+            <input class="form-input" type="password" placeholder="Enter your password" autocomplete="current-password">
+          </div>
+          <div class="form-row">
+            <label class="form-check">
+              <input type="checkbox"> <span>Remember me</span>
+            </label>
+            <a href="#" class="form-link">Forgot password?</a>
+          </div>
+          <button class="form-btn primary">[ ACCESS SYSTEM ]</button>
+          <p class="form-alt">Don't have an account? <a href="#" class="form-link" onclick="switchAuthTab('signup')">Sign Up</a></p>
+        </div>
+
+        <!-- Sign Up Form -->
+        <div class="auth-form hidden" id="form-signup">
+          <div class="auth-welcome">
+            <div class="auth-icon">◈</div>
+            <p class="auth-subtitle">CREATE YOUR PROFILE</p>
+          </div>
+          <div class="form-group">
+            <label class="form-label">FULL NAME</label>
+            <input class="form-input" type="text" placeholder="Enter your full name" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">STUDENT ID</label>
+            <input class="form-input" type="text" placeholder="Enter your student ID">
+          </div>
+          <div class="form-group">
+            <label class="form-label">EMAIL</label>
+            <input class="form-input" type="email" placeholder="Enter your email" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label">PASSWORD</label>
+            <input class="form-input" type="password" placeholder="Create a password" autocomplete="new-password">
+          </div>
+          <div class="form-group">
+            <label class="form-label">CONFIRM PASSWORD</label>
+            <input class="form-input" type="password" placeholder="Confirm your password" autocomplete="new-password">
+          </div>
+          <button class="form-btn primary">[ INITIALIZE PROFILE ]</button>
+          <p class="form-alt">Already have an account? <a href="#" class="form-link" onclick="switchAuthTab('login')">Log In</a></p>
+        </div>
+
+      </div><!-- /page-body -->
+    </div>
+  </div>
+
+  <!-- ABOUT US -->
+  <div class="page-modal" id="page-about" role="dialog" aria-modal="true" aria-label="About Us" onclick="handlePageClick(event,'about')">
+    <div class="page-panel">
+      <div class="page-header">
+        <span class="page-header-title">[ ABOUT THIS SYSTEM ]</span>
+        <button class="page-close" onclick="closePage('about')" aria-label="Close">✕</button>
+      </div>
+      <div class="page-body">
+        <div class="info-hero">
+          <div class="info-hero-icon">◈</div>
+          <h2 class="info-hero-title">Richard's Academy</h2>
+          <p class="info-hero-sub">Holographic Study Interface v2.0</p>
+        </div>
+        <div class="info-section">
+          <h3 class="info-heading">WHAT IS THIS?</h3>
+          <p class="info-text">Richard's Academy is a futuristic-themed personal study resource hub designed to organize academic modules, lecture slides, and subject files across all year levels.</p>
+        </div>
+        <div class="info-section">
+          <h3 class="info-heading">FEATURES</h3>
+          <ul class="info-list">
+            <li>◈ Organized by Year Level and Semester</li>
+            <li>◈ In-page PDF and file viewer</li>
+            <li>◈ Holographic UI with cyberpunk aesthetics</li>
+            <li>◈ Responsive for desktop and mobile</li>
+            <li>◈ XP progression system</li>
+            <li>◈ Ambient cyberpunk music player</li>
+          </ul>
+        </div>
+        <div class="info-section">
+          <h3 class="info-heading">BUILT BY</h3>
+          <p class="info-text">Developed and maintained by <span class="info-highlight">Ricardo Manzano Jr.</span><br>College of Computer Studies in OLFU · 1st Year</p>
+        </div>
+        <div class="info-divider"></div>
+        <p class="info-footer">[ SYSTEM VERSION 2.0 · ALL RIGHTS RESERVED ]</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="page-modal" id="page-faq" role="dialog" aria-modal="true" aria-label="FAQ" onclick="handlePageClick(event,'faq')">
+    <div class="page-panel">
+      <div class="page-header">
+        <span class="page-header-title">[ FREQUENTLY ASKED QUESTIONS ]</span>
+        <button class="page-close" onclick="closePage('faq')" aria-label="Close">✕</button>
+      </div>
+      <div class="page-body">
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>How do I access subject modules?</span>
+              <span class="faq-chevron">⌄</span>
+            </button>
+            <div class="faq-answer">
+              <p>Click on a Year card to expand it, then select a Semester. Available semesters will show subject cards. Click any subject card to open its uploaded files in the built-in viewer.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Why is a semester locked?</span>
+              <span class="faq-chevron">⌄</span>
+            </button>
+            <div class="faq-answer">
+              <p>Locked semesters haven't been unlocked yet. Files and subjects for those semesters will be added as the academic year progresses.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Why does a subject say "not yet uploaded"?</span>
+              <span class="faq-chevron">⌄</span>
+            </button>
+            <div class="faq-answer">
+              <p>The subject exists but its files haven't been added yet. Check back later — modules are uploaded progressively throughout the semester.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Can I download the files?</span>
+              <span class="faq-chevron">⌄</span>
+            </button>
+            <div class="faq-answer">
+              <p>Yes! When viewing a file, click the <strong>↗ OPEN FILE</strong> button in the top-right of the viewer. This opens the raw file in a new tab where you can download it.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>How does the XP system work?</span>
+              <span class="faq-chevron">⌄</span>
+            </button>
+            <div class="faq-answer">
+              <p>The XP bar at the bottom reflects your year level. Clicking on a higher year card increases the XP display. Reach 4th Year to hit MAX LEVEL!</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>How do I play the background music?</span>
+              <span class="faq-chevron">⌄</span>
+            </button>
+            <div class="faq-answer">
+              <p>Click the ▶ play button on the music bar at the top of the page. The track is <em>cyberpunk.theme</em>. You can also seek to any point by hovering over the progress bar at the bottom of the music bar.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="page-modal" id="page-contact" role="dialog" aria-modal="true" aria-label="Contact" onclick="handlePageClick(event,'contact')">
+    <div class="page-panel">
+      <div class="page-header">
+        <span class="page-header-title">[ CONTACT ]</span>
+        <button class="page-close" onclick="closePage('contact')" aria-label="Close">✕</button>
+      </div>
+      <div class="page-body">
+        <div class="info-hero">
+          <div class="info-hero-icon">📡</div>
+          <h2 class="info-hero-title">Get In Touch</h2>
+          <p class="info-hero-sub">Send a transmission to the operator</p>
+        </div>
+
+        <div class="contact-links">
+          <a class="contact-card" href="mailto:your@email.com">
+            <span class="contact-icon">✉</span>
+            <div>
+              <div class="contact-label">EMAIL</div>
+              <div class="contact-value">ricardomanzanojr778@gmail.com</div>
+            </div>
+          </a>
+          <a class="contact-card" href="https://github.com/lucy2007-bsit" target="_blank" rel="noopener">
+            <span class="contact-icon">⌥</span>
+            <div>
+              <div class="contact-label">GITHUB</div>
+              <div class="contact-value">github.com/lucy2007-bsit</div>
+            </div>
+          </a>
+          <a class="contact-card" href="#" target="_blank" rel="noopener">
+            <span class="contact-icon">◈</span>
+            <div>
+              <div class="contact-label">FACEBOOK</div>
+              <div class="contact-value">https://www.facebook.com/ricardo.manzano.37017</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="info-divider"></div>
+
+        <div class="info-section">
+          <h3 class="info-heading">SEND A MESSAGE</h3>
+          <div class="form-group">
+            <label class="form-label">YOUR NAME</label>
+            <input class="form-input" type="text" placeholder="Enter your name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">YOUR EMAIL</label>
+            <input class="form-input" type="email" placeholder="Enter your email">
+          </div>
+          <div class="form-group">
+            <label class="form-label">MESSAGE</label>
+            <textarea class="form-input form-textarea" placeholder="Type your message here..." rows="4"></textarea>
+          </div>
+          <button class="form-btn primary">[ SEND TRANSMISSION ]</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  </div><!-- /main-app -->
+
   <script src="script.js"></script>
 </body>
 </html>
