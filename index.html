@@ -11,26 +11,21 @@
 </head>
 <body>
 
-  <!-- ========== LOGIN GATE ========== -->
-  <div class="login-gate" id="loginGate">
-    <div class="login-scanline" aria-hidden="true"></div>
+  <!-- ========== LOGIN GATE (modal overlay over blurred app) ========== -->
+  <div class="login-gate" id="loginGate" aria-modal="true" role="dialog" aria-label="Authentication required">
 
-    <!-- Background grid -->
-    <div class="grid-bg" aria-hidden="true">
-      <div class="grid-lines"></div>
-    </div>
-
-    <div class="login-container">
-
-      <!-- Logo / Title -->
-      <div class="login-header">
-        <div class="login-logo">◈</div>
-        <h1 class="login-title">RICHARD'S ACADEMY</h1>
-        <p class="login-sub">[ HOLOGRAPHIC STUDY INTERFACE v2.0 ]</p>
-        <p class="login-notice">AUTHENTICATION REQUIRED TO ACCESS SYSTEM</p>
+    <!-- Tabs -->
+    <div class="login-card">
+      <div class="login-card-header">
+        <div class="login-logo-row">
+          <span class="login-logo-icon">◈</span>
+          <div>
+            <div class="login-brand">RICHARD'S ACADEMY</div>
+            <div class="login-brand-sub">[ HOLOGRAPHIC STUDY INTERFACE v2.0 ]</div>
+          </div>
+        </div>
       </div>
 
-      <!-- Tabs -->
       <div class="login-tabs">
         <button class="login-tab active" id="gate-tab-login"  onclick="switchGateTab('login')">LOG IN</button>
         <button class="login-tab"        id="gate-tab-signup" onclick="switchGateTab('signup')">SIGN UP</button>
@@ -40,11 +35,22 @@
       <div class="login-form" id="gate-form-login">
         <div class="form-group">
           <label class="form-label">STUDENT ID / EMAIL</label>
-          <input class="form-input" type="text" id="gate-login-id" placeholder="Enter your ID or email" autocomplete="username">
+          <input class="form-input" type="text" id="gate-login-id"
+            placeholder="Enter your Student ID or email"
+            autocomplete="username"
+            oninput="clearGateError('gate-login-error')">
+          <span class="field-hint" id="hint-login-id"></span>
         </div>
         <div class="form-group">
           <label class="form-label">PASSWORD</label>
-          <input class="form-input" type="password" id="gate-login-pass" placeholder="Enter your password" autocomplete="current-password">
+          <div class="input-wrap">
+            <input class="form-input" type="password" id="gate-login-pass"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              oninput="clearGateError('gate-login-error')">
+            <button class="pass-toggle" type="button" onclick="togglePass('gate-login-pass', this)" aria-label="Show password">👁</button>
+          </div>
+          <span class="field-hint" id="hint-login-pass"></span>
         </div>
         <div class="login-error" id="gate-login-error"></div>
         <div class="form-row">
@@ -59,32 +65,60 @@
       <!-- SIGN UP FORM -->
       <div class="login-form hidden" id="gate-form-signup">
         <div class="form-group">
-          <label class="form-label">FULL NAME</label>
-          <input class="form-input" type="text" id="gate-signup-name" placeholder="Enter your full name" autocomplete="name">
+          <label class="form-label">FULL NAME <span class="required-star">*</span></label>
+          <input class="form-input" type="text" id="gate-signup-name"
+            placeholder="Letters only (e.g. Juan dela Cruz)"
+            autocomplete="name"
+            oninput="validateName(this)">
+          <span class="field-hint" id="hint-signup-name"></span>
         </div>
         <div class="form-group">
-          <label class="form-label">STUDENT ID</label>
-          <input class="form-input" type="text" id="gate-signup-id" placeholder="Enter your student ID">
+          <label class="form-label">STUDENT ID <span class="required-star">*</span></label>
+          <input class="form-input" type="text" id="gate-signup-id"
+            placeholder="Numbers only (e.g. 20231234)"
+            oninput="validateStudentId(this)">
+          <span class="field-hint" id="hint-signup-id"></span>
         </div>
         <div class="form-group">
-          <label class="form-label">EMAIL</label>
-          <input class="form-input" type="email" id="gate-signup-email" placeholder="Enter your email" autocomplete="email">
+          <label class="form-label">EMAIL <span class="required-star">*</span></label>
+          <input class="form-input" type="email" id="gate-signup-email"
+            placeholder="e.g. juan@email.com"
+            autocomplete="email"
+            oninput="validateEmail(this)">
+          <span class="field-hint" id="hint-signup-email"></span>
         </div>
         <div class="form-group">
-          <label class="form-label">PASSWORD</label>
-          <input class="form-input" type="password" id="gate-signup-pass" placeholder="Create a password (min 6 chars)" autocomplete="new-password">
+          <label class="form-label">PASSWORD <span class="required-star">*</span></label>
+          <div class="input-wrap">
+            <input class="form-input" type="password" id="gate-signup-pass"
+              placeholder="Min 8 chars, include number &amp; letter"
+              autocomplete="new-password"
+              oninput="validatePassword(this)">
+            <button class="pass-toggle" type="button" onclick="togglePass('gate-signup-pass', this)" aria-label="Show password">👁</button>
+          </div>
+          <span class="field-hint" id="hint-signup-pass"></span>
+          <div class="pass-strength-bar"><div class="pass-strength-fill" id="pass-strength-fill"></div></div>
+          <span class="field-hint" id="pass-strength-label"></span>
         </div>
         <div class="form-group">
-          <label class="form-label">CONFIRM PASSWORD</label>
-          <input class="form-input" type="password" id="gate-signup-pass2" placeholder="Confirm your password" autocomplete="new-password">
+          <label class="form-label">CONFIRM PASSWORD <span class="required-star">*</span></label>
+          <div class="input-wrap">
+            <input class="form-input" type="password" id="gate-signup-pass2"
+              placeholder="Re-enter your password"
+              autocomplete="new-password"
+              oninput="validateConfirm(this)">
+            <button class="pass-toggle" type="button" onclick="togglePass('gate-signup-pass2', this)" aria-label="Show password">👁</button>
+          </div>
+          <span class="field-hint" id="hint-signup-pass2"></span>
         </div>
         <div class="login-error" id="gate-signup-error"></div>
         <button class="form-btn primary" onclick="gateSignup()">[ INITIALIZE PROFILE ]</button>
-        <p class="form-alt" style="margin-top:0.8rem">Already have an account? <a href="#" class="form-link" onclick="switchGateTab('login')">Log In</a></p>
+        <p class="form-alt">Already have an account? <a href="#" class="form-link" onclick="switchGateTab('login')">Log In</a></p>
       </div>
 
       <p class="login-footer">[ SYSTEM SECURED · AUTHORIZED USERS ONLY ]</p>
     </div>
+
   </div>
   <!-- /LOGIN GATE -->
 
@@ -117,7 +151,7 @@
           <span class="nav-link-icon">◈</span> FAQ
         </a>
         <a class="nav-link" href="#" onclick="openPage('contact')">
-          <span class="nav-link-icon">◈</span> Contact Us
+          <span class="nav-link-icon">◈</span> Contact
         </a>
       </nav>
       <div class="nav-footer">System Status: ONLINE</div>
@@ -148,7 +182,7 @@
       <span></span><span></span><span></span><span></span><span></span>
     </div>
     <div class="mbar-info">
-      <div class="mbar-title">cyberpunk theme</div>
+      <div class="mbar-title">cyberpunk.theme</div>
       <div class="mbar-status" id="mbarStatus">PAUSED</div>
     </div>
     <div class="mbar-progress">
@@ -627,7 +661,7 @@
         </div>
         <div class="info-section">
           <h3 class="info-heading">WHAT IS THIS?</h3>
-          <p class="info-text">Richard's Academy is a futuristic-themed personal study resource hub designed to organize academic modules, lecture slides, and subject files across all year levels.</p>
+          <p class="info-text">Richard's Academy is a cyberpunk-themed personal study resource hub designed to organize academic modules, lecture slides, and subject files across all year levels.</p>
         </div>
         <div class="info-section">
           <h3 class="info-heading">FEATURES</h3>
@@ -642,7 +676,7 @@
         </div>
         <div class="info-section">
           <h3 class="info-heading">BUILT BY</h3>
-          <p class="info-text">Developed and maintained by <span class="info-highlight">Ricardo Manzano Jr.</span><br>College of Computer Studies in OLFU · 1st Year</p>
+          <p class="info-text">Developed and maintained by <span class="info-highlight">Richard Manzano Jr.</span><br>College of Computer Studies · 1st Year</p>
         </div>
         <div class="info-divider"></div>
         <p class="info-footer">[ SYSTEM VERSION 2.0 · ALL RIGHTS RESERVED ]</p>
@@ -744,7 +778,7 @@
             <span class="contact-icon">✉</span>
             <div>
               <div class="contact-label">EMAIL</div>
-              <div class="contact-value">ricardomanzanojr778@gmail.com</div>
+              <div class="contact-value">your@email.com</div>
             </div>
           </a>
           <a class="contact-card" href="https://github.com/lucy2007-bsit" target="_blank" rel="noopener">
@@ -758,7 +792,7 @@
             <span class="contact-icon">◈</span>
             <div>
               <div class="contact-label">FACEBOOK</div>
-              <div class="contact-value">https://www.facebook.com/ricardo.manzano.37017</div>
+              <div class="contact-value">Add your Facebook link</div>
             </div>
           </a>
         </div>

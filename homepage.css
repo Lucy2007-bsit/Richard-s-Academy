@@ -1973,3 +1973,215 @@ input[type=range].mbar-seek::-moz-range-thumb {
   .page-panel { max-height: 92vh; }
   .auth-tab { padding: 7px 14px; font-size: 10px; }
 }
+
+/* ============================================================
+   LOGIN GATE — Modal card over blurred background
+   ============================================================ */
+.login-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(5, 5, 15, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.login-card {
+  position: relative;
+  width: min(460px, 95vw);
+  max-height: 92vh;
+  overflow-y: auto;
+  background: rgba(7, 7, 18, 0.98);
+  border: 2px solid var(--cyan);
+  box-shadow:
+    0 0 60px rgba(0,255,255,0.15),
+    0 0 120px rgba(0,255,255,0.05),
+    inset 0 0 40px rgba(0,255,255,0.02);
+  padding: 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,255,255,0.2) transparent;
+}
+
+.login-card::-webkit-scrollbar { width: 3px; }
+.login-card::-webkit-scrollbar-thumb { background: rgba(0,255,255,0.2); }
+
+/* Gold corner brackets */
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 20px; height: 20px;
+  border-top: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+  pointer-events: none;
+  z-index: 2;
+}
+.login-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 20px; height: 20px;
+  border-bottom: 2px solid var(--gold);
+  border-left: 2px solid var(--gold);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.login-card-header {
+  padding: 1.4rem 1.8rem 1rem;
+  border-bottom: 1px solid rgba(0,255,255,0.12);
+  background: rgba(0,255,255,0.03);
+}
+
+.login-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.login-logo-icon {
+  font-size: 1.8rem;
+  color: var(--cyan);
+  text-shadow: 0 0 20px var(--cyan);
+  flex-shrink: 0;
+}
+
+.login-brand {
+  font-family: var(--font-display);
+  font-size: clamp(13px, 2.5vw, 16px);
+  font-weight: 900;
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, var(--cyan), var(--magenta));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.login-brand-sub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: rgba(0,255,255,0.4);
+  letter-spacing: 2px;
+  margin-top: 2px;
+}
+
+/* Tabs */
+.login-tabs {
+  display: flex;
+  border-bottom: 1px solid rgba(0,255,255,0.12);
+  background: rgba(0,0,0,0.2);
+}
+
+.login-tab {
+  flex: 1;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 12px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: rgba(255,255,255,0.35);
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: -1px;
+}
+
+.login-tab:hover { color: var(--cyan); background: rgba(0,255,255,0.03); }
+.login-tab.active {
+  color: var(--cyan);
+  border-bottom-color: var(--cyan);
+  text-shadow: 0 0 8px var(--cyan);
+  background: rgba(0,255,255,0.04);
+}
+
+/* Form wrapper */
+.login-form {
+  padding: 1.4rem 1.8rem 0.5rem;
+}
+.login-form.hidden { display: none; }
+
+/* Error message */
+.login-error {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #ff4466;
+  letter-spacing: 1px;
+  margin-bottom: 0.8rem;
+  min-height: 16px;
+  text-shadow: 0 0 8px rgba(255,68,102,0.4);
+}
+
+/* Field hints (validation feedback) */
+.field-hint {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  margin-top: 4px;
+  min-height: 14px;
+  transition: color 0.2s;
+}
+.field-hint.ok  { color: var(--green); }
+.field-hint.err { color: #ff4466; }
+
+/* Required star */
+.required-star { color: var(--magenta); font-size: 12px; }
+
+/* Input with toggle button */
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-wrap .form-input { padding-right: 38px; }
+
+.pass-toggle {
+  position: absolute;
+  right: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+  padding: 0;
+  line-height: 1;
+}
+.pass-toggle:hover { opacity: 1; }
+
+/* Password strength bar */
+.pass-strength-bar {
+  height: 3px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+.pass-strength-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 2px;
+  transition: width 0.3s, background 0.3s;
+}
+
+/* Footer */
+.login-footer {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: rgba(0,255,255,0.2);
+  letter-spacing: 2px;
+  padding: 1rem 1.8rem 1.2rem;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .login-card-header { padding: 1rem 1.2rem 0.8rem; }
+  .login-form        { padding: 1rem 1.2rem 0.4rem; }
+  .login-footer      { padding: 0.8rem 1.2rem 1rem; }
+}

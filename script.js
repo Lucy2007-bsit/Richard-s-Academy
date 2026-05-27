@@ -172,13 +172,7 @@ const SUBJECT_FILES = {
   'WBDV111': {
     title: 'WBDV111 — Web Development',
     desc:  'HTML, CSS, JavaScript — building for the web.',
-    files: [
-    { label: 'Finals 1',        path: 'files/Introduction-to-JavaScript.pdf',   fileType: 'pdf'  },
-    { label: 'Finals 2',        path: 'files/Introduction-to-Javascript part 2.pdf',   fileType: 'pdf'  },
-    { label: 'Finals 3',        path: 'files/JS-Conditions-Loops-and-Strings.pdf',   fileType: 'pdf'  },
-    { label: 'Finals 4',        path: 'files/Introduction-to-JavaScript-and-Operator.pdf', fileType: 'pdf' },
-    { label: 'Finals Reviewer', path: 'files/JSReviewer.pdf',   fileType: 'pdf'  },
-    ],
+    files: [],
   },
 
   'PCDL111': {
@@ -502,7 +496,7 @@ function toggleMusic() {
   musicPlaying = !musicPlaying;
   setMusicUI(musicPlaying);
   if (!musicAudio) {
-    musicAudio = new Audio('audio/CYBERPUNK 2077 SOUNDTRACK - I REALLY WANT TO STAY AT YOUR HOUSE.mp3');
+    musicAudio = new Audio('audio/cyberpunk-theme.mp3');
     musicAudio.loop   = true;
     musicAudio.volume = 0.5;
     musicAudio.addEventListener('timeupdate', updateProgress);
@@ -615,181 +609,254 @@ document.addEventListener('keydown', function(e) {
 });
 
 /* ============================================================
-   LOGIN GATE — Auth system with localStorage
+   LOGIN GATE — Auth system with localStorage + validation
    ============================================================ */
 
-const AUTH_KEY     = 'ra_users';      /* stored accounts   */
-const SESSION_KEY  = 'ra_session';    /* active session    */
+const AUTH_KEY    = 'ra_users';
+const SESSION_KEY = 'ra_session';
 
-/* ── Get all registered users ── */
 function getUsers() {
   try { return JSON.parse(localStorage.getItem(AUTH_KEY)) || {}; }
   catch { return {}; }
 }
+function saveUsers(u) { localStorage.setItem(AUTH_KEY, JSON.stringify(u)); }
 
-/* ── Save users ── */
-function saveUsers(users) {
-  localStorage.setItem(AUTH_KEY, JSON.stringify(users));
-}
-
-/* ── Check session on load ── */
+/* ── Session check ── */
 function checkSession() {
-  const session = localStorage.getItem(SESSION_KEY);
-  if (session) {
-    /* Already logged in — skip gate */
-    showMainApp();
-  }
-  /* else gate stays visible */
+  const s = localStorage.getItem(SESSION_KEY) || sessionStorage.getItem(SESSION_KEY);
+  if (s) showMainApp();
 }
 
-/* ── Show main app, hide gate ── */
 function showMainApp() {
   const gate = document.getElementById('loginGate');
   const app  = document.getElementById('mainApp');
   if (gate) {
-    gate.style.opacity = '0';
+    gate.style.opacity    = '0';
     gate.style.transition = 'opacity 0.5s ease';
     setTimeout(() => { gate.style.display = 'none'; }, 500);
   }
   if (app) app.style.display = 'block';
-  /* Trigger XP bar animation after reveal */
   setTimeout(() => { setXP('year2'); }, 600);
 }
 
-/* ── Switch tabs on the gate ── */
+/* ── Tab switch ── */
 function switchGateTab(tab) {
-  const loginForm  = document.getElementById('gate-form-login');
-  const signupForm = document.getElementById('gate-form-signup');
-  const loginTab   = document.getElementById('gate-tab-login');
-  const signupTab  = document.getElementById('gate-tab-signup');
-  document.getElementById('gate-login-error').textContent  = '';
-  document.getElementById('gate-signup-error').textContent = '';
-
+  const lf = document.getElementById('gate-form-login');
+  const sf = document.getElementById('gate-form-signup');
+  const lt = document.getElementById('gate-tab-login');
+  const st = document.getElementById('gate-tab-signup');
+  clearGateError('gate-login-error');
+  clearGateError('gate-signup-error');
   if (tab === 'login') {
-    loginForm.classList.remove('hidden');
-    signupForm.classList.add('hidden');
-    loginTab.classList.add('active');
-    signupTab.classList.remove('active');
+    lf.classList.remove('hidden'); sf.classList.add('hidden');
+    lt.classList.add('active');    st.classList.remove('active');
   } else {
-    signupForm.classList.remove('hidden');
-    loginForm.classList.add('hidden');
-    signupTab.classList.add('active');
-    loginTab.classList.remove('active');
+    sf.classList.remove('hidden'); lf.classList.add('hidden');
+    st.classList.add('active');    lt.classList.remove('active');
   }
+}
+
+function clearGateError(id) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = '';
+}
+
+/* ── Show/hide password toggle ── */
+function togglePass(inputId, btn) {
+  const inp = document.getElementById(inputId);
+  if (!inp) return;
+  const show = inp.type === 'password';
+  inp.type   = show ? 'text' : 'password';
+  btn.style.opacity = show ? '1' : '0.5';
+}
+
+/* ── Real-time field validation ── */
+function setHint(id, msg, type) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = msg;
+  el.className   = 'field-hint ' + (type || '');
+}
+
+function validateName(input) {
+  const v = input.value.trim();
+  if (!v) { setHint('hint-signup-name', '', ''); return; }
+  if (/[^a-zA-ZÀ-ÿ\s.\-']/.test(v))
+    setHint('hint-signup-name', '⚠ Letters only — no numbers or special characters', 'err');
+  else if (v.length < 2)
+    setHint('hint-signup-name', '⚠ Name is too short', 'err');
+  else
+    setHint('hint-signup-name', '✔ Looks good', 'ok');
+}
+
+function validateStudentId(input) {
+  const v = input.value.trim();
+  if (!v) { setHint('hint-signup-id', '', ''); return; }
+  if (/[^0-9\-]/.test(v))
+    setHint('hint-signup-id', '⚠ Numbers only — no letters allowed', 'err');
+  else if (v.replace(/\D/g,'').length < 6)
+    setHint('hint-signup-id', '⚠ Student ID must be at least 6 digits', 'err');
+  else
+    setHint('hint-signup-id', '✔ Valid student ID', 'ok');
+}
+
+function validateEmail(input) {
+  const v = input.value.trim();
+  if (!v) { setHint('hint-signup-email', '', ''); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))
+    setHint('hint-signup-email', '⚠ Enter a valid email (e.g. juan@email.com)', 'err');
+  else
+    setHint('hint-signup-email', '✔ Valid email', 'ok');
+}
+
+function validatePassword(input) {
+  const v   = input.value;
+  const bar = document.getElementById('pass-strength-fill');
+  const lbl = document.getElementById('pass-strength-label');
+  if (!v) {
+    setHint('hint-signup-pass', '', '');
+    if (bar) { bar.style.width='0%'; bar.style.background=''; }
+    if (lbl) lbl.textContent = '';
+    return;
+  }
+
+  let score = 0;
+  if (v.length >= 8)               score++;
+  if (v.length >= 12)              score++;
+  if (/[A-Z]/.test(v))             score++;
+  if (/[0-9]/.test(v))             score++;
+  if (/[^A-Za-z0-9]/.test(v))      score++;
+
+  const levels = [
+    { label: 'Very Weak',  color: '#ff2244', pct: '20%' },
+    { label: 'Weak',       color: '#ff6600', pct: '40%' },
+    { label: 'Fair',       color: '#ffcc00', pct: '60%' },
+    { label: 'Strong',     color: '#00ccff', pct: '80%' },
+    { label: 'Very Strong',color: '#00ff88', pct: '100%' },
+  ];
+  const lvl = levels[Math.min(score, 4)];
+  if (bar) { bar.style.width = lvl.pct; bar.style.background = lvl.color; }
+  if (lbl) { lbl.textContent = lvl.label; lbl.className = 'field-hint'; lbl.style.color = lvl.color; }
+
+  if (v.length < 8)
+    setHint('hint-signup-pass', '⚠ Minimum 8 characters required', 'err');
+  else if (!/[0-9]/.test(v))
+    setHint('hint-signup-pass', '⚠ Include at least one number', 'err');
+  else if (!/[a-zA-Z]/.test(v))
+    setHint('hint-signup-pass', '⚠ Include at least one letter', 'err');
+  else
+    setHint('hint-signup-pass', '✔ Password meets requirements', 'ok');
+
+  /* Also re-validate confirm if already typed */
+  const c = document.getElementById('gate-signup-pass2');
+  if (c && c.value) validateConfirm(c);
+}
+
+function validateConfirm(input) {
+  const pass = document.getElementById('gate-signup-pass')?.value || '';
+  if (!input.value) { setHint('hint-signup-pass2', '', ''); return; }
+  if (input.value !== pass)
+    setHint('hint-signup-pass2', '⚠ Passwords do not match', 'err');
+  else
+    setHint('hint-signup-pass2', '✔ Passwords match', 'ok');
 }
 
 /* ── Log In ── */
 function gateLogin() {
-  const idVal    = document.getElementById('gate-login-id').value.trim();
-  const passVal  = document.getElementById('gate-login-pass').value;
-  const remember = document.getElementById('gate-remember').checked;
-  const errEl    = document.getElementById('gate-login-error');
+  const idVal  = document.getElementById('gate-login-id').value.trim();
+  const pass   = document.getElementById('gate-login-pass').value;
+  const errEl  = document.getElementById('gate-login-error');
   errEl.textContent = '';
 
-  if (!idVal || !passVal) {
-    errEl.textContent = '⚠ Please fill in all fields.';
-    return;
-  }
+  if (!idVal) { errEl.textContent = '⚠ Please enter your Student ID or email.'; return; }
+  if (!pass)  { errEl.textContent = '⚠ Please enter your password.'; return; }
 
   const users = getUsers();
+  const user  = Object.values(users).find(u => u.studentId === idVal || u.email === idVal);
 
-  /* Find by student ID or email */
-  const user = Object.values(users).find(
-    u => u.studentId === idVal || u.email === idVal
-  );
+  if (!user)                          { errEl.textContent = '⚠ Account not found. Please sign up first.'; return; }
+  if (user.password !== btoa(pass))   { errEl.textContent = '⚠ Incorrect password. Try again.'; return; }
 
-  if (!user) {
-    errEl.textContent = '⚠ Account not found. Please sign up first.';
-    return;
-  }
-
-  if (user.password !== btoa(passVal)) {
-    errEl.textContent = '⚠ Incorrect password.';
-    return;
-  }
-
-  /* Save session */
-  if (remember) {
-    localStorage.setItem(SESSION_KEY, JSON.stringify({ name: user.name, id: user.studentId }));
-  } else {
-    sessionStorage.setItem(SESSION_KEY, JSON.stringify({ name: user.name, id: user.studentId }));
-  }
+  const session = JSON.stringify({ name: user.name, id: user.studentId });
+  if (document.getElementById('gate-remember').checked)
+    localStorage.setItem(SESSION_KEY, session);
+  else
+    sessionStorage.setItem(SESSION_KEY, session);
 
   showMainApp();
 }
 
 /* ── Sign Up ── */
 function gateSignup() {
-  const name   = document.getElementById('gate-signup-name').value.trim();
-  const idVal  = document.getElementById('gate-signup-id').value.trim();
-  const email  = document.getElementById('gate-signup-email').value.trim();
-  const pass   = document.getElementById('gate-signup-pass').value;
-  const pass2  = document.getElementById('gate-signup-pass2').value;
-  const errEl  = document.getElementById('gate-signup-error');
+  const name  = document.getElementById('gate-signup-name').value.trim();
+  const idVal = document.getElementById('gate-signup-id').value.trim();
+  const email = document.getElementById('gate-signup-email').value.trim();
+  const pass  = document.getElementById('gate-signup-pass').value;
+  const pass2 = document.getElementById('gate-signup-pass2').value;
+  const errEl = document.getElementById('gate-signup-error');
   errEl.textContent = '';
 
+  /* Run all validators */
+  validateName(document.getElementById('gate-signup-name'));
+  validateStudentId(document.getElementById('gate-signup-id'));
+  validateEmail(document.getElementById('gate-signup-email'));
+  validatePassword(document.getElementById('gate-signup-pass'));
+  validateConfirm(document.getElementById('gate-signup-pass2'));
+
   if (!name || !idVal || !email || !pass || !pass2) {
-    errEl.textContent = '⚠ Please fill in all fields.';
-    return;
+    errEl.textContent = '⚠ Please fill in all fields.'; return;
   }
-  if (pass.length < 6) {
-    errEl.textContent = '⚠ Password must be at least 6 characters.';
-    return;
+  if (/[^a-zA-ZÀ-ÿ\s.\-']/.test(name)) {
+    errEl.textContent = '⚠ Name must contain letters only.'; return;
+  }
+  if (/[^0-9\-]/.test(idVal) || idVal.replace(/\D/g,'').length < 6) {
+    errEl.textContent = '⚠ Student ID must be numbers only (min 6 digits).'; return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errEl.textContent = '⚠ Please enter a valid email address.'; return;
+  }
+  if (pass.length < 8) {
+    errEl.textContent = '⚠ Password must be at least 8 characters.'; return;
+  }
+  if (!/[0-9]/.test(pass) || !/[a-zA-Z]/.test(pass)) {
+    errEl.textContent = '⚠ Password must include both letters and numbers.'; return;
   }
   if (pass !== pass2) {
-    errEl.textContent = '⚠ Passwords do not match.';
-    return;
-  }
-
-  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRe.test(email)) {
-    errEl.textContent = '⚠ Please enter a valid email address.';
-    return;
+    errEl.textContent = '⚠ Passwords do not match.'; return;
   }
 
   const users = getUsers();
-
-  /* Check duplicate */
-  const exists = Object.values(users).find(
-    u => u.studentId === idVal || u.email === email
-  );
-  if (exists) {
-    errEl.textContent = '⚠ An account with that ID or email already exists.';
-    return;
+  if (Object.values(users).find(u => u.studentId === idVal || u.email === email)) {
+    errEl.textContent = '⚠ An account with that Student ID or email already exists.'; return;
   }
 
-  /* Save new user */
   users[idVal] = { name, studentId: idVal, email, password: btoa(pass) };
   saveUsers(users);
 
-  /* Auto log in after signup */
-  localStorage.setItem(SESSION_KEY, JSON.stringify({ name, id: idVal }));
+  const session = JSON.stringify({ name, id: idVal });
+  localStorage.setItem(SESSION_KEY, session);
   showMainApp();
 }
 
-/* ── Log Out (call this from nav menu if needed) ── */
+/* ── Log Out ── */
 function logout() {
   localStorage.removeItem(SESSION_KEY);
   sessionStorage.removeItem(SESSION_KEY);
   location.reload();
 }
 
-/* ── Allow Enter key to submit forms ── */
+/* ── Enter key submits active form ── */
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') {
-    const gate = document.getElementById('loginGate');
-    if (!gate || gate.style.display === 'none') return;
-    const loginForm = document.getElementById('gate-form-login');
-    if (!loginForm.classList.contains('hidden')) {
-      gateLogin();
-    } else {
-      gateSignup();
-    }
-  }
+  if (e.key !== 'Enter') return;
+  const gate = document.getElementById('loginGate');
+  if (!gate || gate.style.display === 'none' || gate.style.opacity === '0') return;
+  const loginForm = document.getElementById('gate-form-login');
+  if (!loginForm.classList.contains('hidden')) gateLogin();
+  else gateSignup();
 });
 
-/* ── Run session check on load ── */
-/* Override the original load listener */
+/* ── Init ── */
 window.addEventListener('load', () => {
   checkSession();
+  setTimeout(() => { setXP('year2'); }, 400);
 });
