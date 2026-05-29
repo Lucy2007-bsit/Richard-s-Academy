@@ -142,7 +142,10 @@ const SUBJECT_FILES = {
   'INPR111': {
     title: 'INPR111 — Introduction to Programming',
     desc:  'Variables, loops, functions, and logic.',
-    files: [],
+    files: [
+      { label: 'Prelims, Midterms and Finals',  path: 'files/1st Year/2nd Sem/INPR/All season/INPR PRELIMS to FINALS EXAM REVIEWER.pdf',   fileType: 'pdf'  },
+
+    ],
   },
 
   'MATM111': {
@@ -192,7 +195,25 @@ const SUBJECT_FILES = {
   'PCDL111': {
     title: 'PCDL111 — PC Debugging & Logic',
     desc:  'Troubleshooting, hardware logic, and system diagnostics.',
-    files: [],
+    files: [
+    { label: 'Prelims 1',        path: 'files/1st Year/2nd Sem/PCDL/Prelims/Chapter1 Components of Computer System.pdf',   fileType: 'pdf'  },
+    { label: 'Prelims 2',        path: 'files/1st Year/2nd Sem/PCDL/Prelims/Chapter2 Operating System and Application Software.pdf',   fileType: 'pdf'  },
+    { label: 'Prelims 3',        path: 'files/1st Year/2nd Sem/PCDL/Prelims/Chapter3 Computer Hardware IPO Storage and Network.pdf',   fileType: 'pdf'  },
+    { label: 'Prelims 4',        path: 'files/1st Year/2nd Sem/PCDL/Prelims/Chapter4 Motherboard and Computer Ports.pdf', fileType: 'pdf' },
+    { label: 'Prelims 5',        path: 'files/1st Year/2nd Sem/PCDL/Prelims/Chapter5 Computer Power Supply.pdf',   fileType: 'pdf'  },
+    { label: 'Prelims Reviewer', path: 'files/1st Year/2nd Sem/PCDL/Prelims/PCDL111 REVIEWER FOR PART 1.pdf',   fileType: 'pdf'  },
+    { label: 'Prelims Reviewer 2', path: 'files/1st Year/2nd Sem/PCDL/Prelims/PCDL111 REVIEWER FOR PART 2.pdf',   fileType: 'pdf'  },
+
+    { label: 'Midterms 1',        path: 'files/1st Year/2nd Sem/PCDL/Midterms/BINARY-ARITHMETIC.pdf',   fileType: 'pdf'  },
+    { label: 'Midterms 2',        path: 'files/1st Year/2nd Sem/PCDL/Midterms/NUMBER SYSTEM CONVERSION-1.pdf',   fileType: 'pdf'  },
+    { label: 'Midterms 3',        path: 'files/1st Year/2nd Sem/PCDL/Midterms/UNIT1-Introduction-to-Digital-Logic.pdf',   fileType: 'pdf'  },
+    { label: 'Midterms 4',        path: 'files/1st Year/2nd Sem/PCDL/Midterms/UNIT2-Brief-History-of-Number-System.pdf',   fileType: 'pdf'  },
+
+    { label: 'Finals 1',        path: 'files/1st Year/2nd Sem/PCDL/Finals/BASIC LOGIC GATES.pdf',   fileType: 'pdf'  },
+    { label: 'Finals 2',        path: 'files/1st Year/2nd Sem/PCDL/Finals/Lesson6-Boolean_Algebra_Law.pdf',   fileType: 'pdf'  },
+    { label: 'Finals 3',        path: 'files/1st Year/2nd Sem/PCDL/Finals/Lesson6-SOP-POS.pdf',   fileType: 'pdf'  },
+    { label: 'Finals 4',        path: 'files/1st Year/2nd Sem/PCDL/Finals/Lesson7-K-Mapping.pdf', fileType: 'pdf' },
+    ],
   },
 
 };
