@@ -8,132 +8,23 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="homepage.css">
+
 </head>
 <body>
 
-  <!-- ========== LOGIN GATE (modal overlay over blurred app) ========== -->
-  <div class="login-gate" id="loginGate" aria-modal="true" role="dialog" aria-label="Authentication required">
-
-    <!-- Tabs -->
-    <div class="login-card">
-      <div class="login-card-header">
-        <div class="login-logo-row">
-          <span class="login-logo-icon">◈</span>
-          <div>
-            <div class="login-brand">RICHARD'S ACADEMY</div>
-            <div class="login-brand-sub">[ HOLOGRAPHIC STUDY INTERFACE v2.0 ]</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="login-tabs">
-        <button class="login-tab active" id="gate-tab-login"  onclick="switchGateTab('login')">LOG IN</button>
-        <button class="login-tab"        id="gate-tab-signup" onclick="switchGateTab('signup')">SIGN UP</button>
-      </div>
-
-      <!-- LOG IN FORM -->
-      <div class="login-form" id="gate-form-login">
-        <div class="form-group">
-          <label class="form-label">STUDENT ID / EMAIL</label>
-          <input class="form-input" type="text" id="gate-login-id"
-            placeholder="Enter your Student ID or email"
-            autocomplete="username"
-            oninput="clearGateError('gate-login-error')">
-          <span class="field-hint" id="hint-login-id"></span>
-        </div>
-        <div class="form-group">
-          <label class="form-label">PASSWORD</label>
-          <div class="input-wrap">
-            <input class="form-input" type="password" id="gate-login-pass"
-              placeholder="Enter your password"
-              autocomplete="current-password"
-              oninput="clearGateError('gate-login-error')">
-            <button class="pass-toggle" type="button" onclick="togglePass('gate-login-pass', this)" aria-label="Show password">👁</button>
-          </div>
-          <span class="field-hint" id="hint-login-pass"></span>
-        </div>
-        <div class="login-error" id="gate-login-error"></div>
-        <div class="form-row">
-          <label class="form-check">
-            <input type="checkbox" id="gate-remember"> <span>Remember me</span>
-          </label>
-          <a href="#" class="form-link" onclick="switchGateTab('signup')">Create account</a>
-        </div>
-        <button class="form-btn primary" onclick="gateLogin()">[ ACCESS SYSTEM ]</button>
-      </div>
-
-      <!-- SIGN UP FORM -->
-      <div class="login-form hidden" id="gate-form-signup">
-        <div class="form-group">
-          <label class="form-label">FULL NAME <span class="required-star">*</span></label>
-          <input class="form-input" type="text" id="gate-signup-name"
-            placeholder="Letters only (e.g. Juan dela Cruz)"
-            autocomplete="name"
-            oninput="validateName(this)">
-          <span class="field-hint" id="hint-signup-name"></span>
-        </div>
-        <div class="form-group">
-          <label class="form-label">STUDENT ID <span class="required-star">*</span></label>
-          <input class="form-input" type="text" id="gate-signup-id"
-            placeholder="Numbers only (e.g. 20231234)"
-            oninput="validateStudentId(this)">
-          <span class="field-hint" id="hint-signup-id"></span>
-        </div>
-        <div class="form-group">
-          <label class="form-label">EMAIL <span class="required-star">*</span></label>
-          <input class="form-input" type="email" id="gate-signup-email"
-            placeholder="e.g. juan@email.com"
-            autocomplete="email"
-            oninput="validateEmail(this)">
-          <span class="field-hint" id="hint-signup-email"></span>
-        </div>
-        <div class="form-group">
-          <label class="form-label">PASSWORD <span class="required-star">*</span></label>
-          <div class="input-wrap">
-            <input class="form-input" type="password" id="gate-signup-pass"
-              placeholder="Min 8 chars, include number &amp; letter"
-              autocomplete="new-password"
-              oninput="validatePassword(this)">
-            <button class="pass-toggle" type="button" onclick="togglePass('gate-signup-pass', this)" aria-label="Show password">👁</button>
-          </div>
-          <span class="field-hint" id="hint-signup-pass"></span>
-          <div class="pass-strength-bar"><div class="pass-strength-fill" id="pass-strength-fill"></div></div>
-          <span class="field-hint" id="pass-strength-label"></span>
-        </div>
-        <div class="form-group">
-          <label class="form-label">CONFIRM PASSWORD <span class="required-star">*</span></label>
-          <div class="input-wrap">
-            <input class="form-input" type="password" id="gate-signup-pass2"
-              placeholder="Re-enter your password"
-              autocomplete="new-password"
-              oninput="validateConfirm(this)">
-            <button class="pass-toggle" type="button" onclick="togglePass('gate-signup-pass2', this)" aria-label="Show password">👁</button>
-          </div>
-          <span class="field-hint" id="hint-signup-pass2"></span>
-        </div>
-        <div class="login-error" id="gate-signup-error"></div>
-        <button class="form-btn primary" onclick="gateSignup()">[ INITIALIZE PROFILE ]</button>
-        <p class="form-alt">Already have an account? <a href="#" class="form-link" onclick="switchGateTab('login')">Log In</a></p>
-      </div>
-
-      <p class="login-footer">[ SYSTEM SECURED · AUTHORIZED USERS ONLY ]</p>
-    </div>
-
-  </div>
-  <!-- /LOGIN GATE -->
+<!-- HTML Tag Examples -->
+<h1 data-i18n="title">RICHARD'S ACADEMY</h1>
+<span data-i18n="welcome">WELCOME BACK, STUDENT</span>
 
 
-  <!-- ========== MAIN APP (hidden until logged in) ========== -->
-  <div class="main-app" id="mainApp" style="display:none">
+  <div class="main-app" id="mainApp">
 
-  <!-- Animated background -->
   <div class="grid-bg" aria-hidden="true">
     <div class="grid-lines"></div>
     <div class="light-beam-l"></div>
     <div class="light-beam-r"></div>
   </div>
 
-  <!-- ========== HAMBURGER MENU OVERLAY ========== -->
   <div class="nav-overlay" id="navOverlay" aria-hidden="true">
     <div class="nav-panel" role="dialog" aria-label="Navigation menu">
       <div class="nav-header">
@@ -158,7 +49,6 @@
     </div>
   </div>
 
-  <!-- ========== TOP NAV BAR (hamburger, always visible) ========== -->
   <div class="top-bar">
     <div class="top-bar-inner">
       <span class="top-bar-logo">R/A</span>
@@ -170,7 +60,6 @@
     </div>
   </div>
 
-  <!-- MUSIC BAR (desktop: fixed below nav, hidden on mobile) -->
   <div class="music-bar" id="musicBar">
     <button class="mbar-btn" id="musicPlayBtn" onclick="toggleMusic()" aria-label="Play / Pause">▶</button>
     <div class="mbar-waveform" id="mbarWave">
@@ -190,10 +79,8 @@
     </div>
   </div>
 
-  <!-- ========== MAIN LAYOUT ========== -->
   <div class="page">
 
-    <!-- LUCY (desktop sidebar) -->
     <aside class="char-aside left" aria-label="Lucy guide">
       <div class="char-unit">
         <div class="char-frame lucy">
@@ -205,7 +92,6 @@
       </div>
     </aside>
 
-    <!-- MAIN CONTENT -->
     <main class="main" id="main-content">
 
       <header class="header">
@@ -213,7 +99,6 @@
         <p class="subtitle">[ HOLOGRAPHIC STUDY INTERFACE v2.0 ]</p>
       </header>
 
-      <!-- Search -->
       <div class="search-wrap" role="search">
         <div class="search-glow" aria-hidden="true"></div>
         <div class="search-inner">
@@ -233,10 +118,8 @@
         </div>
       </div>
 
-      <!-- Year Blocks -->
       <div class="years" id="yearsContainer">
 
-        <!-- 1ST YEAR -->
         <div class="year-block y1" id="year1">
           <div class="year-glow" style="background:#00ffff" aria-hidden="true"></div>
           <div class="year-inner" onclick="toggleYear('year1')" role="button" tabindex="0" aria-expanded="false" aria-controls="content-year1">
@@ -272,8 +155,7 @@
                   </div>
                 </div>
               </div>
-            </div><!-- /semesters -->
-            <div class="subjects-wrap" id="subjects-y1-s1">
+            </div><div class="subjects-wrap" id="subjects-y1-s1">
               <div class="subjects-grid">
                 <div class="subject-card" onclick="openSubject('NSTP111')" role="button" tabindex="0">
                   <div class="subj-corner" aria-hidden="true"></div>
@@ -392,7 +274,6 @@
           </div>
         </div>
 
-        <!-- 2ND YEAR -->
         <div class="year-block y2" id="year2">
           <div class="year-glow" style="background:#ff00ff" aria-hidden="true"></div>
           <div class="year-inner" onclick="toggleYear('year2')" role="button" tabindex="0" aria-expanded="false" aria-controls="content-year2">
@@ -412,7 +293,6 @@
           </div>
         </div>
 
-        <!-- 3RD YEAR -->
         <div class="year-block y3" id="year3">
           <div class="year-glow" style="background:#ffcc00" aria-hidden="true"></div>
           <div class="year-inner" onclick="toggleYear('year3')" role="button" tabindex="0" aria-expanded="false" aria-controls="content-year3">
@@ -432,7 +312,6 @@
           </div>
         </div>
 
-        <!-- 4TH YEAR -->
         <div class="year-block y4" id="year4">
           <div class="year-glow" style="background:#00ff88" aria-hidden="true"></div>
           <div class="year-inner" onclick="toggleYear('year4')" role="button" tabindex="0" aria-expanded="false" aria-controls="content-year4">
@@ -452,14 +331,9 @@
           </div>
         </div>
 
-      </div><!-- /years -->
+      </div><p class="footer-status">System Status: ONLINE &nbsp;|&nbsp; Network: SECURE &nbsp;|&nbsp; Uplink: STABLE</p>
 
-      <p class="footer-status">System Status: ONLINE &nbsp;|&nbsp; Network: SECURE &nbsp;|&nbsp; Uplink: STABLE</p>
-
-    </main><!-- /main -->
-
-    <!-- REBECCA (desktop sidebar) -->
-    <aside class="char-aside right" aria-label="Rebecca guide">
+    </main><aside class="char-aside right" aria-label="Rebecca guide">
       <div class="char-unit">
         <div class="char-frame rebecca">
           <div class="char-name rebecca">REBECCA</div>
@@ -470,10 +344,7 @@
       </div>
     </aside>
 
-  </div><!-- /page -->
-
-  <!-- ========== MOBILE LUCY (bottom peek, mobile only) ========== -->
-  <div class="mobile-lucy" aria-label="Lucy guide" aria-hidden="true">
+  </div><div class="mobile-lucy" aria-label="Lucy guide" aria-hidden="true">
     <div class="mobile-lucy-bubble">
       <span>Welcome back, student.<br>Ready to level up?</span>
       <div class="bubble-dot"></div>
@@ -483,7 +354,6 @@
     </div>
   </div>
 
-  <!-- XP BAR (fixed bottom) -->
   <div class="xp-bar-fixed" role="status" aria-label="Experience progress">
     <div class="xp-row">
       <span class="xp-level">LEVEL 2</span>
@@ -498,7 +368,6 @@
     <p class="sys-status" aria-hidden="true">System Status: ONLINE &nbsp;|&nbsp; Network: SECURE &nbsp;|&nbsp; Uplink: STABLE</p>
   </div>
 
-  <!-- SPLASH OVERLAY + TOAST (4th year max level) -->
   <div class="splash-overlay" id="splashOverlay" onclick="closeSplash()"></div>
   <div class="splash-toast" id="splashToast" role="dialog" aria-modal="true" aria-label="Congratulations">
     <div class="splash-corner tl"></div>
@@ -516,11 +385,9 @@
   
 
 
-  <!-- ========== FILE VIEWER MODAL ========== -->
   <div class="viewer-modal" id="viewerModal" onclick="handleViewerClick(event)" aria-modal="true" role="dialog" aria-label="Subject module viewer">
     <div class="viewer-panel">
 
-      <!-- Header -->
       <div class="viewer-header">
         <div class="viewer-header-left">
           <span class="viewer-icon">◈</span>
@@ -532,10 +399,8 @@
         </div>
       </div>
 
-      <!-- File tabs (shown when subject has multiple files) -->
       <div class="viewer-tabs" id="viewerTabs"></div>
 
-      <!-- Body: dynamic content injected by JS -->
       <div class="viewer-body" id="viewerBody">
         <div class="viewer-loader" id="viewerLoader">
           <div class="viewer-spinner"></div>
@@ -543,7 +408,6 @@
         </div>
       </div>
 
-      <!-- Footer -->
       <div class="viewer-footer">
         <span class="viewer-status">[ HOLOGRAPHIC MODULE VIEWER v1.0 ]</span>
         <span class="viewer-hint">ESC or click outside to close</span>
@@ -552,7 +416,6 @@
     </div>
   </div>
 
-  <!-- ========== NO FILE YET MODAL ========== -->
   <div class="viewer-modal no-file-modal" id="noFileModal" onclick="handleNoFileClick(event)" aria-modal="true" role="dialog" aria-label="Module not yet available">
     <div class="no-file-panel">
       <div class="splash-corner tl"></div>
@@ -571,9 +434,6 @@
     </div>
   </div>
 
-  <!-- ========== PAGE MODALS ========== -->
-
-  <!-- SIGN UP / LOG IN -->
   <div class="page-modal" id="page-auth" role="dialog" aria-modal="true" aria-label="Sign Up or Log In" onclick="handlePageClick(event,'auth')">
     <div class="page-panel">
       <div class="page-header">
@@ -582,13 +442,11 @@
       </div>
       <div class="page-body">
 
-        <!-- Tabs -->
         <div class="auth-tabs">
           <button class="auth-tab active" id="tab-login"  onclick="switchAuthTab('login')">LOG IN</button>
           <button class="auth-tab"        id="tab-signup" onclick="switchAuthTab('signup')">SIGN UP</button>
         </div>
 
-        <!-- Log In Form -->
         <div class="auth-form" id="form-login">
           <div class="auth-welcome">
             <div class="auth-icon">⬡</div>
@@ -612,7 +470,6 @@
           <p class="form-alt">Don't have an account? <a href="#" class="form-link" onclick="switchAuthTab('signup')">Sign Up</a></p>
         </div>
 
-        <!-- Sign Up Form -->
         <div class="auth-form hidden" id="form-signup">
           <div class="auth-welcome">
             <div class="auth-icon">◈</div>
@@ -642,11 +499,9 @@
           <p class="form-alt">Already have an account? <a href="#" class="form-link" onclick="switchAuthTab('login')">Log In</a></p>
         </div>
 
-      </div><!-- /page-body -->
-    </div>
+      </div></div>
   </div>
 
-  <!-- ABOUT US -->
   <div class="page-modal" id="page-about" role="dialog" aria-modal="true" aria-label="About Us" onclick="handlePageClick(event,'about')">
     <div class="page-panel">
       <div class="page-header">
@@ -684,7 +539,6 @@
     </div>
   </div>
 
-  <!-- FAQ -->
   <div class="page-modal" id="page-faq" role="dialog" aria-modal="true" aria-label="FAQ" onclick="handlePageClick(event,'faq')">
     <div class="page-panel">
       <div class="page-header">
@@ -759,7 +613,6 @@
     </div>
   </div>
 
-  <!-- CONTACT -->
   <div class="page-modal" id="page-contact" role="dialog" aria-modal="true" aria-label="Contact" onclick="handlePageClick(event,'contact')">
     <div class="page-panel">
       <div class="page-header">
@@ -820,8 +673,129 @@
     </div>
   </div>
 
-  </div><!-- /main-app -->
+  </div><div class="top-profile-btn" onclick="openSettings()" aria-label="Open Settings">
+  <img src="" id="global-avatar" class="hidden" alt="Profile">
+  <div id="global-avatar-fallback"></div>
+</div>
+
+<div class="settings-modal" id="settingsModal" aria-hidden="true">
+  <div class="settings-modal-inner">
+    
+    <div class="settings-sidebar">
+      <div class="settings-sidebar-header">USER SETTINGS</div>
+      <button class="settings-tab active" onclick="switchSettingsTab(event, 'profile')">Profiles</button>
+      <button class="settings-tab" onclick="switchSettingsTab(event, 'appearance')">Appearance</button>
+      <button class="settings-tab" onclick="switchSettingsTab(event, 'language')">Language</button>
+      
+      <div class="settings-divider"></div>
+      
+      <button class="settings-tab danger" onclick="logOut()">Log Out</button>
+    </div>
+    
+    <div class="settings-content">
+      <div class="settings-close-wrap" onclick="closeSettings()">
+        <div class="settings-close-btn">✕</div>
+        <div class="settings-close-lbl">ESC</div>
+      </div>
+      
+      <div id="set-tab-profile" class="settings-pane active">
+        <h2 class="settings-pane-title">Profiles</h2>
+        
+        
+        
+        <div class="profile-edit-layout">
+          <div class="profile-form-col">
+            <div class="form-group">
+              <label class="form-label">Display Name</label>
+              <input class="form-input" type="text" id="input-display-name" placeholder="Enter display name">
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Pronouns</label>
+              <input class="form-input" type="text" id="input-pronouns" placeholder="e.g. They/Them">
+            </div>
+
+            <div class="settings-divider" style="width: 100%; margin: 24px 0;"></div>
+
+            <div class="form-group">
+              <label class="form-label">Avatar</label>
+              <div class="button-group">
+                <label for="avatar-upload" class="form-btn primary">Change Avatar</label>
+                <input type="file" id="avatar-upload" accept="image/png, image/jpeg, image/gif" hidden>
+                <button class="form-btn secondary" id="remove-avatar-btn">Remove Avatar</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Banner Color</label>
+              <input type="color" id="input-accent-color" value="#5865F2" class="cyber-color-picker">
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">About Me</label>
+              <textarea class="form-input form-textarea" id="input-bio" placeholder="You can use markdown and links if you'd like." rows="4"></textarea>
+            </div>
+          </div>
+
+          <div class="profile-preview-col">
+            <label class="form-label">Preview</label>
+            <div class="settings-card preview-card">
+              <div class="settings-banner" id="preview-banner"></div>
+              <div class="settings-avatar-wrap">
+                <img src="" alt="Avatar" id="preview-avatar" class="avatar-img hidden">
+                <div class="settings-avatar-fallback" id="preview-avatar-fallback"></div>
+              </div>
+              <div class="settings-user-info preview-info">
+                <h3 id="preview-name">Runner_01</h3>
+                <p id="preview-pronouns">No pronouns set</p>
+                <div class="preview-badges">
+                  <span class="badge">W</span>
+                  <span class="badge">U</span>
+                </div>
+              </div>
+              <div class="preview-body">
+                <p id="preview-bio-text" class="preview-bio">No bio provided.</p>
+                <div class="preview-dummy-btn">Example Button</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-save-bar">
+          <span id="save-status" class="status-msg">Careful — you have unsaved changes!</span>
+          <div class="save-actions">
+            <button class="settings-tab" onclick="loadProfileData()" style="width: auto;">Reset</button>
+            <button class="form-btn primary" id="save-profile-btn" style="background-color: #23a559; border-color: #23a559;">Save Changes</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="set-tab-appearance" class="settings-pane">
+        <h2 class="settings-pane-title">Appearance</h2>
+        <p style="color: #b5bac1; font-family: var(--font-mono);">Holographic theme adjustments offline...</p>
+      </div>
+
+      <div id="set-tab-language" class="settings-pane">
+        <h2 class="settings-pane-title">Language</h2>
+        <div class="form-group" style="max-width: 400px;">
+          <label class="form-label">Select Application Language</label>
+          <select id="language-select" class="form-input" onchange="applyLanguage(this.value)">
+          <option value="en-US">English (US)</option>
+         <option value="tl-PH">Tagalog</option>
+         <option value="ceb">Bisaya / Cebuano</option>
+         <option value="es">Español</option>
+         <option value="zh-CN">中文 (Chinese)</option>
+         <option value="ja">日本語 (Japanese)</option>
+       </select>
+        </div>
+        <p id="language-feedback" style="color: #23a559; font-size: 13px; font-weight: bold; opacity: 0; transition: opacity 0.3s;">Language successfully updated.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
 
   <script src="script.js"></script>
+  <script src="language.js" defer></script>
 </body>
 </html>

@@ -172,7 +172,21 @@ const SUBJECT_FILES = {
   'WBDV111': {
     title: 'WBDV111 — Web Development',
     desc:  'HTML, CSS, JavaScript — building for the web.',
-    files: [],
+    files: [
+    { label: 'Prelims 1',        path: 'files/1st Year/2nd Sem/WBDV/Prelims/Module-1-Getting-Started-with-HTML.pdf',   fileType: 'pdf'  },
+    { label: 'Prelims 2',        path: 'files/1st Year/2nd Sem/WBDV/Prelims/Module-2-Formatting-Text-and-Organizing-Data.pdf',   fileType: 'pdf'  },
+    { label: 'Prelims 3',        path: 'files/1st Year/2nd Sem/WBDV/Prelims/Module-3-Exploring-Visual-and-Interactive-Elements.pdf',   fileType: 'pdf'  },
+    { label: 'Prelims 4',        path: 'files/1st Year/2nd Sem/WBDV/Prelims/Module-4-Enhancing-Web-Presentation.pdf', fileType: 'pdf' },
+    { label: 'Prelims Reviewer', path: 'files/1st Year/2nd Sem/WBDV/Prelims/PRELIM LAB EXAM REVIEWER.pdf',   fileType: 'pdf'  },
+    { label: 'Prelims Reviewer 2', path: 'files/1st Year/2nd Sem/WBDV/Prelims/RECITATION REVIEWER_SDWAHTML.pdf',   fileType: 'pdf'  },
+    { label: 'Midterms 1',        path: 'files/1st Year/2nd Sem/WBDV/Midterms/Lesson-1-Introduction-to-CSS.pdf',   fileType: 'pdf'  },
+    { label: 'Midterms 2',        path: 'files/1st Year/2nd Sem/WBDV/Midterms/Parts-Of-A-Website (1).pdf',   fileType: 'pdf'  },
+    { label: 'Finals 1',        path: 'files/1st Year/2nd Sem/WBDV/Finals/Introduction-to-JavaScript.pdf',   fileType: 'pdf'  },
+    { label: 'Finals 2',        path: 'files/1st Year/2nd Sem/WBDV/Finals/Introduction-to-Javascript part 2.pdf',   fileType: 'pdf'  },
+    { label: 'Finals 3',        path: 'files/1st Year/2nd Sem/WBDV/Finals/JS-Conditions-Loops-and-Strings.pdf',   fileType: 'pdf'  },
+    { label: 'Finals 4',        path: 'files/1st Year/2nd Sem/WBDV/Finals/Introduction-to-JavaScript-and-Operator.pdf', fileType: 'pdf' },
+    { label: 'Finals Reviewer', path: 'files/1st Year/2nd Sem/WBDV/Finals/JSReviewer.pdf',   fileType: 'pdf'  },
+    ],
   },
 
   'PCDL111': {
@@ -496,7 +510,7 @@ function toggleMusic() {
   musicPlaying = !musicPlaying;
   setMusicUI(musicPlaying);
   if (!musicAudio) {
-    musicAudio = new Audio('audio/cyberpunk-theme.mp3');
+    musicAudio = new Audio('audio/CYBERPUNK 2077 SOUNDTRACK - I REALLY WANT TO STAY AT YOUR HOUSE.mp3');
     musicAudio.loop   = true;
     musicAudio.volume = 0.5;
     musicAudio.addEventListener('timeupdate', updateProgress);
@@ -609,254 +623,310 @@ document.addEventListener('keydown', function(e) {
 });
 
 /* ============================================================
-   LOGIN GATE — Auth system with localStorage + validation
+   LOGIN GATE REMOVED - Direct access enabled
    ============================================================ */
 
-const AUTH_KEY    = 'ra_users';
-const SESSION_KEY = 'ra_session';
-
-function getUsers() {
-  try { return JSON.parse(localStorage.getItem(AUTH_KEY)) || {}; }
-  catch { return {}; }
-}
-function saveUsers(u) { localStorage.setItem(AUTH_KEY, JSON.stringify(u)); }
-
-/* ── Session check ── */
-function checkSession() {
-  const s = localStorage.getItem(SESSION_KEY) || sessionStorage.getItem(SESSION_KEY);
-  if (s) showMainApp();
+function logOut() {
+  closeSettings();
+  alert("You are now logged out.");
 }
 
-function showMainApp() {
-  const gate = document.getElementById('loginGate');
-  const app  = document.getElementById('mainApp');
-  if (gate) {
-    gate.style.opacity    = '0';
-    gate.style.transition = 'opacity 0.5s ease';
-    setTimeout(() => { gate.style.display = 'none'; }, 500);
+/* ============================================================
+   ACCOUNT SETTINGS & LANGUAGE LOGIC
+   ============================================================ */
+const PROFILE_STORAGE_KEY = 'richards_academy_user_profile';
+const APP_SETTINGS_KEY = 'richards_academy_app_settings';
+
+let currentAvatarBase64 = null;
+
+function openSettings() {
+  document.getElementById('settingsModal').classList.add('show');
+  document.addEventListener('keydown', handleSettingsEsc);
+  loadProfileData(); 
+  loadAppSettings(); 
+}
+
+function closeSettings() {
+  document.getElementById('settingsModal').classList.remove('show');
+  document.removeEventListener('keydown', handleSettingsEsc);
+}
+
+function handleSettingsEsc(e) {
+  if (e.key === 'Escape') closeSettings();
+}
+
+// Safely switch panes using the event parameter
+function switchSettingsTab(event, tabId) {
+  document.querySelectorAll('.settings-sidebar .settings-tab').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  
+  if (event && event.currentTarget) {
+    event.currentTarget.classList.add('active');
   }
-  if (app) app.style.display = 'block';
-  setTimeout(() => { setXP('year2'); }, 600);
+  
+  document.querySelectorAll('.settings-pane').forEach(pane => {
+    pane.classList.remove('active');
+  });
+  
+  const targetPane = document.getElementById('set-tab-' + tabId);
+  if (targetPane) targetPane.classList.add('active');
 }
 
-/* ── Tab switch ── */
-function switchGateTab(tab) {
-  const lf = document.getElementById('gate-form-login');
-  const sf = document.getElementById('gate-form-signup');
-  const lt = document.getElementById('gate-tab-login');
-  const st = document.getElementById('gate-tab-signup');
-  clearGateError('gate-login-error');
-  clearGateError('gate-signup-error');
-  if (tab === 'login') {
-    lf.classList.remove('hidden'); sf.classList.add('hidden');
-    lt.classList.add('active');    st.classList.remove('active');
+// --- DATA LOADING ---
+function loadProfileData() {
+  const savedData = localStorage.getItem(PROFILE_STORAGE_KEY);
+  const profile = savedData ? JSON.parse(savedData) : {
+    displayName: '', pronouns: '', bio: '', accentColor: '#5865F2', avatar: null
+  };
+
+  document.getElementById('input-display-name').value = profile.displayName;
+  document.getElementById('input-pronouns').value = profile.pronouns;
+  document.getElementById('input-bio').value = profile.bio;
+  document.getElementById('input-accent-color').value = profile.accentColor;
+  currentAvatarBase64 = profile.avatar;
+
+  updateDOMDisplays(profile);
+  hideSaveBar();
+}
+
+// --- UPDATE UI EVERYWHERE ---
+function updateDOMDisplays(data) {
+  const safeName = data.displayName || 'User';
+  const safePronouns = data.pronouns || '';
+  const safeBio = data.bio || 'No bio provided.';
+  const firstLetter = safeName.charAt(0).toUpperCase();
+
+  // Update Preview Modal
+  document.getElementById('preview-name').textContent = safeName;
+  document.getElementById('preview-pronouns').textContent = safePronouns;
+  document.getElementById('preview-bio-text').textContent = safeBio;
+  document.getElementById('preview-banner').style.backgroundColor = data.accentColor;
+  
+  const previewImg = document.getElementById('preview-avatar');
+  const previewFall = document.getElementById('preview-avatar-fallback');
+  const globalImg = document.getElementById('global-avatar');
+  const globalFall = document.getElementById('global-avatar-fallback');
+  const globalBtn = document.querySelector('.top-profile-btn');
+
+  // Handle Image logic for both Preview and Global Top-Right Button
+  if (data.avatar) {
+    // SHOW image, HIDE fallback circle
+    previewImg.src = data.avatar; 
+    previewImg.classList.remove('hidden'); 
+    previewFall.style.display = 'none'; 
+    
+    globalImg.src = data.avatar; 
+    globalImg.classList.remove('hidden'); 
+    globalFall.style.display = 'none'; 
+    
+    if(globalBtn) globalBtn.style.background = 'transparent'; 
   } else {
-    sf.classList.remove('hidden'); lf.classList.add('hidden');
-    st.classList.add('active');    lt.classList.remove('active');
+    // HIDE image, SHOW fallback circle
+    previewImg.classList.add('hidden'); 
+    previewFall.style.display = 'flex'; 
+    previewFall.textContent = firstLetter;
+    
+    globalImg.classList.add('hidden'); 
+    globalFall.style.display = 'block'; 
+    globalFall.textContent = firstLetter;
+    
+    if(globalBtn) globalBtn.style.background = '#808080'; 
   }
 }
 
-function clearGateError(id) {
-  const el = document.getElementById(id);
-  if (el) el.textContent = '';
+// --- LANGUAGE SETTINGS LOGIC ---
+
+// Simple dictionary for live translation
+const translations = {
+  'en-US': { 
+    profileTab: 'Profiles', appearanceTab: 'Appearance', languageTab: 'Language', 
+    profileTitle: 'Profiles', appearanceTitle: 'Appearance', languageTitle: 'Language' 
+  },
+  'es-ES': { 
+    profileTab: 'Perfiles', appearanceTab: 'Apariencia', languageTab: 'Idioma', 
+    profileTitle: 'Perfiles', appearanceTitle: 'Apariencia', languageTitle: 'Idioma' 
+  },
+  'tl-PH': { 
+    profileTab: 'Mga Profile', appearanceTab: 'Hitsura', languageTab: 'Wika', 
+    profileTitle: 'Mga Profile', appearanceTitle: 'Hitsura', languageTitle: 'Wika' 
+  },
+  'ja-JP': { 
+    profileTab: 'プロフィール', appearanceTab: '外観', languageTab: '言語', 
+    profileTitle: 'プロフィール', appearanceTitle: '外観', languageTitle: '言語' 
+  }
+};
+
+function loadAppSettings() {
+  const savedSettings = localStorage.getItem(APP_SETTINGS_KEY);
+  const settings = savedSettings ? JSON.parse(savedSettings) : { language: 'en-US' };
+  
+  const langSelect = document.getElementById('language-select');
+  if(langSelect) {
+    langSelect.value = settings.language;
+  }
+  applyLanguage(settings.language); // Apply on load
 }
 
-/* ── Show/hide password toggle ── */
-function togglePass(inputId, btn) {
-  const inp = document.getElementById(inputId);
-  if (!inp) return;
-  const show = inp.type === 'password';
-  inp.type   = show ? 'text' : 'password';
-  btn.style.opacity = show ? '1' : '0.5';
+// Triggered when user selects a new language in the dropdown
+function applyLanguage(newLang) {
+  // Ignore English (UK) and others not in demo dictionary, default to US
+  let langCode = newLang;
+  if (!translations[langCode]) {
+      langCode = 'en-US';
+  }
+  
+  localStorage.setItem(APP_SETTINGS_KEY, JSON.stringify({ language: newLang }));
+  
+  const t = translations[langCode];
+
+  // Update Sidebar Tabs
+  const profileBtn = document.querySelector('.settings-tab[onclick*="profile"]');
+  const appearanceBtn = document.querySelector('.settings-tab[onclick*="appearance"]');
+  const languageBtn = document.querySelector('.settings-tab[onclick*="language"]');
+  
+  if(profileBtn) profileBtn.textContent = t.profileTab;
+  if(appearanceBtn) appearanceBtn.textContent = t.appearanceTab;
+  if(languageBtn) languageBtn.textContent = t.languageTab;
+
+  // Update Pane Titles
+  const profileTitle = document.querySelector('#set-tab-profile .settings-pane-title');
+  const appearanceTitle = document.querySelector('#set-tab-appearance .settings-pane-title');
+  const languageTitle = document.querySelector('#set-tab-language .settings-pane-title');
+
+  if(profileTitle) profileTitle.textContent = t.profileTitle;
+  if(appearanceTitle) appearanceTitle.textContent = t.appearanceTitle;
+  if(languageTitle) languageTitle.textContent = t.languageTitle;
+
+  const feedback = document.getElementById('language-feedback');
+  if(feedback) {
+    feedback.style.opacity = '1';
+    setTimeout(() => { feedback.style.opacity = '0'; }, 2000);
+  }
 }
 
-/* ── Real-time field validation ── */
-function setHint(id, msg, type) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.textContent = msg;
-  el.className   = 'field-hint ' + (type || '');
-}
+// --- LISTENERS & SAVE BAR ---
+document.addEventListener('DOMContentLoaded', () => {
+  loadProfileData(); 
+  loadAppSettings(); 
+  
+  const inputs = ['input-display-name', 'input-pronouns', 'input-bio', 'input-accent-color'];
+  inputs.forEach(id => {
+    const el = document.getElementById(id);
+    if(el) {
+      el.addEventListener('input', () => {
+        showSaveBar();
+        updateDOMDisplays({
+          displayName: document.getElementById('input-display-name').value,
+          pronouns: document.getElementById('input-pronouns').value,
+          bio: document.getElementById('input-bio').value,
+          accentColor: document.getElementById('input-accent-color').value,
+          avatar: currentAvatarBase64
+        });
+      });
+    }
+  });
 
-function validateName(input) {
-  const v = input.value.trim();
-  if (!v) { setHint('hint-signup-name', '', ''); return; }
-  if (/[^a-zA-ZÀ-ÿ\s.\-']/.test(v))
-    setHint('hint-signup-name', '⚠ Letters only — no numbers or special characters', 'err');
-  else if (v.length < 2)
-    setHint('hint-signup-name', '⚠ Name is too short', 'err');
-  else
-    setHint('hint-signup-name', '✔ Looks good', 'ok');
-}
-
-function validateStudentId(input) {
-  const v = input.value.trim();
-  if (!v) { setHint('hint-signup-id', '', ''); return; }
-  if (/[^0-9\-]/.test(v))
-    setHint('hint-signup-id', '⚠ Numbers only — no letters allowed', 'err');
-  else if (v.replace(/\D/g,'').length < 6)
-    setHint('hint-signup-id', '⚠ Student ID must be at least 6 digits', 'err');
-  else
-    setHint('hint-signup-id', '✔ Valid student ID', 'ok');
-}
-
-function validateEmail(input) {
-  const v = input.value.trim();
-  if (!v) { setHint('hint-signup-email', '', ''); return; }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))
-    setHint('hint-signup-email', '⚠ Enter a valid email (e.g. juan@email.com)', 'err');
-  else
-    setHint('hint-signup-email', '✔ Valid email', 'ok');
-}
-
-function validatePassword(input) {
-  const v   = input.value;
-  const bar = document.getElementById('pass-strength-fill');
-  const lbl = document.getElementById('pass-strength-label');
-  if (!v) {
-    setHint('hint-signup-pass', '', '');
-    if (bar) { bar.style.width='0%'; bar.style.background=''; }
-    if (lbl) lbl.textContent = '';
-    return;
+  const avatarUpload = document.getElementById('avatar-upload');
+  if(avatarUpload) {
+    avatarUpload.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        if (file.size > 30000000) { alert("Image is too large! Please choose an image under 30MB."); return; }
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          currentAvatarBase64 = event.target.result;
+          showSaveBar();
+          updateDOMDisplays({
+            displayName: document.getElementById('input-display-name').value,
+            pronouns: document.getElementById('input-pronouns').value,
+            bio: document.getElementById('input-bio').value,
+            accentColor: document.getElementById('input-accent-color').value,
+            avatar: currentAvatarBase64
+          });
+        };
+        reader.readAsDataURL(file);
+      }
+    });
   }
 
-  let score = 0;
-  if (v.length >= 8)               score++;
-  if (v.length >= 12)              score++;
-  if (/[A-Z]/.test(v))             score++;
-  if (/[0-9]/.test(v))             score++;
-  if (/[^A-Za-z0-9]/.test(v))      score++;
-
-  const levels = [
-    { label: 'Very Weak',  color: '#ff2244', pct: '20%' },
-    { label: 'Weak',       color: '#ff6600', pct: '40%' },
-    { label: 'Fair',       color: '#ffcc00', pct: '60%' },
-    { label: 'Strong',     color: '#00ccff', pct: '80%' },
-    { label: 'Very Strong',color: '#00ff88', pct: '100%' },
-  ];
-  const lvl = levels[Math.min(score, 4)];
-  if (bar) { bar.style.width = lvl.pct; bar.style.background = lvl.color; }
-  if (lbl) { lbl.textContent = lvl.label; lbl.className = 'field-hint'; lbl.style.color = lvl.color; }
-
-  if (v.length < 8)
-    setHint('hint-signup-pass', '⚠ Minimum 8 characters required', 'err');
-  else if (!/[0-9]/.test(v))
-    setHint('hint-signup-pass', '⚠ Include at least one number', 'err');
-  else if (!/[a-zA-Z]/.test(v))
-    setHint('hint-signup-pass', '⚠ Include at least one letter', 'err');
-  else
-    setHint('hint-signup-pass', '✔ Password meets requirements', 'ok');
-
-  /* Also re-validate confirm if already typed */
-  const c = document.getElementById('gate-signup-pass2');
-  if (c && c.value) validateConfirm(c);
-}
-
-function validateConfirm(input) {
-  const pass = document.getElementById('gate-signup-pass')?.value || '';
-  if (!input.value) { setHint('hint-signup-pass2', '', ''); return; }
-  if (input.value !== pass)
-    setHint('hint-signup-pass2', '⚠ Passwords do not match', 'err');
-  else
-    setHint('hint-signup-pass2', '✔ Passwords match', 'ok');
-}
-
-/* ── Log In ── */
-function gateLogin() {
-  const idVal  = document.getElementById('gate-login-id').value.trim();
-  const pass   = document.getElementById('gate-login-pass').value;
-  const errEl  = document.getElementById('gate-login-error');
-  errEl.textContent = '';
-
-  if (!idVal) { errEl.textContent = '⚠ Please enter your Student ID or email.'; return; }
-  if (!pass)  { errEl.textContent = '⚠ Please enter your password.'; return; }
-
-  const users = getUsers();
-  const user  = Object.values(users).find(u => u.studentId === idVal || u.email === idVal);
-
-  if (!user)                          { errEl.textContent = '⚠ Account not found. Please sign up first.'; return; }
-  if (user.password !== btoa(pass))   { errEl.textContent = '⚠ Incorrect password. Try again.'; return; }
-
-  const session = JSON.stringify({ name: user.name, id: user.studentId });
-  if (document.getElementById('gate-remember').checked)
-    localStorage.setItem(SESSION_KEY, session);
-  else
-    sessionStorage.setItem(SESSION_KEY, session);
-
-  showMainApp();
-}
-
-/* ── Sign Up ── */
-function gateSignup() {
-  const name  = document.getElementById('gate-signup-name').value.trim();
-  const idVal = document.getElementById('gate-signup-id').value.trim();
-  const email = document.getElementById('gate-signup-email').value.trim();
-  const pass  = document.getElementById('gate-signup-pass').value;
-  const pass2 = document.getElementById('gate-signup-pass2').value;
-  const errEl = document.getElementById('gate-signup-error');
-  errEl.textContent = '';
-
-  /* Run all validators */
-  validateName(document.getElementById('gate-signup-name'));
-  validateStudentId(document.getElementById('gate-signup-id'));
-  validateEmail(document.getElementById('gate-signup-email'));
-  validatePassword(document.getElementById('gate-signup-pass'));
-  validateConfirm(document.getElementById('gate-signup-pass2'));
-
-  if (!name || !idVal || !email || !pass || !pass2) {
-    errEl.textContent = '⚠ Please fill in all fields.'; return;
-  }
-  if (/[^a-zA-ZÀ-ÿ\s.\-']/.test(name)) {
-    errEl.textContent = '⚠ Name must contain letters only.'; return;
-  }
-  if (/[^0-9\-]/.test(idVal) || idVal.replace(/\D/g,'').length < 6) {
-    errEl.textContent = '⚠ Student ID must be numbers only (min 6 digits).'; return;
-  }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    errEl.textContent = '⚠ Please enter a valid email address.'; return;
-  }
-  if (pass.length < 8) {
-    errEl.textContent = '⚠ Password must be at least 8 characters.'; return;
-  }
-  if (!/[0-9]/.test(pass) || !/[a-zA-Z]/.test(pass)) {
-    errEl.textContent = '⚠ Password must include both letters and numbers.'; return;
-  }
-  if (pass !== pass2) {
-    errEl.textContent = '⚠ Passwords do not match.'; return;
+  // Remove Avatar Button
+  const removeAvatarBtn = document.getElementById('remove-avatar-btn');
+  if(removeAvatarBtn) {
+    removeAvatarBtn.addEventListener('click', () => {
+      currentAvatarBase64 = null;
+      document.getElementById('avatar-upload').value = ""; 
+      showSaveBar();
+      updateDOMDisplays({
+        displayName: document.getElementById('input-display-name').value,
+        pronouns: document.getElementById('input-pronouns').value,
+        bio: document.getElementById('input-bio').value,
+        accentColor: document.getElementById('input-accent-color').value,
+        avatar: null
+      });
+    });
   }
 
-  const users = getUsers();
-  if (Object.values(users).find(u => u.studentId === idVal || u.email === email)) {
-    errEl.textContent = '⚠ An account with that Student ID or email already exists.'; return;
-  }
-
-  users[idVal] = { name, studentId: idVal, email, password: btoa(pass) };
-  saveUsers(users);
-
-  const session = JSON.stringify({ name, id: idVal });
-  localStorage.setItem(SESSION_KEY, session);
-  showMainApp();
-}
-
-/* ── Log Out ── */
-function logout() {
-  localStorage.removeItem(SESSION_KEY);
-  sessionStorage.removeItem(SESSION_KEY);
-  location.reload();
-}
-
-/* ── Enter key submits active form ── */
-document.addEventListener('keydown', function(e) {
-  if (e.key !== 'Enter') return;
-  const gate = document.getElementById('loginGate');
-  if (!gate || gate.style.display === 'none' || gate.style.opacity === '0') return;
-  const loginForm = document.getElementById('gate-form-login');
-  if (!loginForm.classList.contains('hidden')) gateLogin();
-  else gateSignup();
+  const saveBtn = document.getElementById('save-profile-btn');
+  if(saveBtn) saveBtn.addEventListener('click', saveProfileData);
 });
 
-/* ── Init ── */
-window.addEventListener('load', () => {
-  checkSession();
-  setTimeout(() => { setXP('year2'); }, 400);
-});
+function showSaveBar() { document.querySelector('.settings-save-bar').classList.add('show'); }
+function hideSaveBar() { document.querySelector('.settings-save-bar').classList.remove('show'); }
+
+function saveProfileData() {
+  const newProfile = {
+    displayName: document.getElementById('input-display-name').value.trim(),
+    pronouns: document.getElementById('input-pronouns').value.trim(),
+    bio: document.getElementById('input-bio').value.trim(),
+    accentColor: document.getElementById('input-accent-color').value,
+    avatar: currentAvatarBase64
+  };
+
+  try {
+    localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(newProfile));
+    
+    const statusMsg = document.getElementById('save-status');
+    statusMsg.textContent = "Changes saved successfully!";
+    statusMsg.style.color = "#23a559"; 
+    
+    setTimeout(() => {
+      hideSaveBar();
+      statusMsg.textContent = "Careful — you have unsaved changes!";
+      statusMsg.style.color = "#f2f3f5";
+    }, 2000);
+    
+  } catch (e) {
+    console.error("Storage error:", e);
+    alert("Error saving profile. File size might be too large.");
+  }
+}
+
+// Auth and Modal Management
+const logOutBtn = document.querySelector('.user-settings-sidebar [data-tab="logout"]') || document.getElementById('logOutBtn');
+const settingsModal = document.getElementById('settingsModal'); // Adjust selector to your actual ID
+const authModal = document.getElementById('authModal');         // Adjust selector to your actual ID
+
+function handleLogOut() {
+    // 1. Clear session indicators
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('currentUser');
+
+    // 2. Hide the User Settings workspace
+    if (settingsModal) settingsModal.classList.add('hidden');
+
+    // 3. Force-display the Authentication screen (Screenshot (2884).jpg)
+    if (authModal) {
+        authModal.classList.remove('hidden');
+    } else {
+        alert("Logged out. Please refresh to log in again.");
+    }
+}
+
+// Event listener for the Log Out sidebar tab
+if (logOutBtn) {
+    logOutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        handleLogOut();
+    });
+}
