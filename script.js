@@ -80,15 +80,38 @@ const SUBJECT_FILES = {
     desc:  'Community service, civic welfare, and literacy training.',
     files: [],
   },
-  'FOPR111': {
+  'FOPR111 [Major]': {
     title: 'FOPR111 — Fundamentals of Programming w/ Lab',
     desc:  'Programming logic, algorithms, and hands-on coding lab.',
-    files: [],
+    files: [
+    { label: 'Module 1',        path: 'files/1st Year/1st Sem/FOPR/Prelims to Finals/W2-Algorithms-Pseudocode-and-Introduction-to-Flowchart.pdf',   fileType: 'pdf'  },
+    { label: 'Module 2',        path: 'files/1st Year/1st Sem/FOPR/Prelims to Finals/W3-Introduction to C.pdf',   fileType: 'pdf'  },
+    { label: 'Module 3',        path: 'files/1st Year/1st Sem/FOPR/Prelims to Finals/W4-Identifiers, Variables, Keywords, and Data Types.pdf',   fileType: 'pdf'  },
+    { label: 'Module 4',        path: 'files/1st Year/1st Sem/FOPR/Prelims to Finals/W5-Operators.pdf',   fileType: 'pdf'  },
+    { label: 'Module 5',        path: 'files/1st Year/1st Sem/FOPR/Prelims to Finals/Revised_C PROGRAMMING LANGUAGE OPERATORS_Part 2.pdf',   fileType: 'pdf'  },
+    { label: 'Module 6',        path: 'files/1st Year/1st Sem/FOPR/Prelims to Finals/C lang_LoopStatement.pdf',   fileType: 'pdf'  },
+    { label: 'Module 7',        path: 'files/1st Year/1st Sem/FOPR/Prelims to Finals/Lesson 5-C lang_Control Statements_Part 1.pdf',   fileType: 'pdf'  },
+    { label: 'Module 8',        path: 'files/1st Year/1st Sem/FOPR/Prelims to Finals/Lesson 5-Switch-Case Statements_Part 2.pdf',   fileType: 'pdf'  },
+    ],
   },
-  'ITCL112': {
+  'ITCL112 [Major]': {
     title: 'ITCL112 — Introduction to Computing w/ Lab',
     desc:  'Computer fundamentals, hardware, software, and basic IT concepts.',
-    files: [],
+    files: [
+    { label: 'Module 1',        path: 'files/1st Year/1st Sem/ITCL/P2F/Module 1.pdf',   fileType: 'pdf'  },
+    { label: 'Module 2',        path: 'files/1st Year/1st Sem/ITCL/P2F/Module 2.pdf',   fileType: 'pdf'  },
+    { label: 'Module 3',        path: 'files/1st Year/1st Sem/ITCL/P2F/Module 3.pdf',   fileType: 'pdf'  },
+    { label: 'Module 4',        path: 'files/1st Year/1st Sem/ITCL/P2F/Module 4.pdf',   fileType: 'pdf'  },
+    { label: 'Module 5',        path: 'files/1st Year/1st Sem/ITCL/P2F/Module 5 Operating System.pdf',   fileType: 'pdf'  },
+    { label: 'Module 6',        path: 'files/1st Year/1st Sem/ITCL/P2F/Module 6 Programming Concepts.pdf',   fileType: 'pdf'  },
+    { label: 'Module 7',        path: 'files/1st Year/1st Sem/ITCL/P2F/Module 7 Using Data Types and Units.pdf',   fileType: 'pdf'  },
+    { label: 'Module 8',        path: 'files/1st Year/1st Sem/ITCL/P2F/Module 8 Internet and the World Wide Web.pdf',   fileType: 'pdf'  },
+    { label: 'Module 9',        path: 'files/1st Year/1st Sem/ITCL/P2F/Module 9 Introduction to Ecommerce.pdf',   fileType: 'pdf'  },
+    { label: 'Module 10',        path: 'files/1st Year/1st Sem/ITCL/P2F/Module 10 Cybersecurity.pdf',   fileType: 'pdf'  },
+    { label: 'Module 11',        path: 'files/1st Year/1st Sem/ITCL/P2F/Module 11 (1).pdf',   fileType: 'pdf'  },
+    { label: 'Module 12',        path: 'files/1st Year/1st Sem/ITCL/P2F/Module 12 Artificial Intelligence Concepts.pdf',   fileType: 'pdf'  },
+    { label: 'Module 13',        path: 'files/1st Year/1st Sem/ITCL/P2F/Module 12-15 Current Trends in Computing.pdf',   fileType: 'pdf'  },
+    ],
   },
   'PHED121': {
     title: 'PHED121 — PATHFit 1: Movement Competency Training',
@@ -139,7 +162,7 @@ const SUBJECT_FILES = {
     files: [],
   },
 
-  'INPR111': {
+  'INPR111 [Major]': {
     title: 'INPR111 — Introduction to Programming',
     desc:  'Variables, loops, functions, and logic.',
     files: [
@@ -172,7 +195,7 @@ const SUBJECT_FILES = {
     files: [],
   },
 
-  'WBDV111': {
+  'WBDV111 [Major]': {
     title: 'WBDV111 — Web Development',
     desc:  'HTML, CSS, JavaScript — building for the web.',
     files: [
@@ -192,7 +215,7 @@ const SUBJECT_FILES = {
     ],
   },
 
-  'PCDL111': {
+  'PCDL111 [Major]': {
     title: 'PCDL111 — PC Debugging & Logic',
     desc:  'Troubleshooting, hardware logic, and system diagnostics.',
     files: [
