@@ -13,6 +13,15 @@
 <li><strong>Multilingual Support:</strong> Localization options for various languages, enhancing accessibility.</li>
 <li><strong>User Settings:</strong> Customizable profile settings including display name, pronouns, avatar, and accent color.</li>
 </ul>
+<h2>Preview</h2>
+<img src="images/md1.png" alt="Preview 1">
+<hr>
+<img src="images/md2.png" alt="Preview 2">
+<hr>
+<img src="images/md3.png" alt="Preview 3">
+<hr>
+<img src="images/md4.png" alt="Preview 4">
+<hr>
 <h2>🛠️ Tech Stack</h2>
 <ul>
 <li><strong>Languages:</strong> HTML, CSS, JavaScript</li>
@@ -95,8 +104,6 @@ cd Richard-s-Academy
 <li><strong>Live Demo:</strong> Not explicitly provided, but the <code>index.html</code> can be opened directly in a browser.</li>
 <li><strong>Repository:</strong> <a href="https://github.com/Lucy2007-bsit/Richard-s-Academy">Lucy2007-bsit/Richard-s-Academy</a></li>
 </ul>
-<h2>🤝 Contributing</h2>
-<p>Contributions are welcome! Please follow standard GitHub contribution guidelines. Feel free to fork the repository, make your changes, and submit a pull request.</p>
 <h2>📄 License</h2>
 <p>This project is not explicitly licensed. Please refer to the repository for any licensing information.</p>
 <h2>footer</h2>
