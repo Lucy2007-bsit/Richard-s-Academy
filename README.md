@@ -1,5 +1,5 @@
 
-<p>Reviewer for all years, this project presents a visually engaging and interactive holographic study interface, designed to organize academic modules and resources with a distinct cyberpunk aesthetic.</p>
+<p>Reviewer for all years, this project presents a visually engaging and interactive holographic study interface, designed to organize academic modules and resources with a distinct futuristic aesthetic.</p>
 <p><a href=""><img src="https://img.shields.io/badge/Primary%20Language-CSS-blue.svg" alt="Primary Language: CSS"></a></p>
 <h2>✨ Features</h2>
 <ul>
@@ -104,7 +104,7 @@ cd Richard-s-Academy
 <ul>
 <li><strong>Repository:</strong> <a href="https://github.com/Lucy2007-bsit/Richard-s-Academy">Richard-s-Academy</a></li>
 <li><strong>Author:</strong> Richard Manzano Jr.</li>
-<li><strong>Contact:</strong> <a href="mailto:ricardomanzanojr778@email.com">your@email.com</a></li>
+<li><strong>Contact:</strong> <a href="mailto:ricardomanzanojr778@email.com">ricardomanzanojr778@email.com</a></li>
 <li><strong>Fork us on GitHub!</strong> ⭐ Like us! 🌟 Report Issues! 🐞</li>
 </ul>
 <hr>
