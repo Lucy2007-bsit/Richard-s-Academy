@@ -14,14 +14,16 @@
 <li><strong>User Settings:</strong> Customizable profile settings including display name, pronouns, avatar, and accent color.</li>
 </ul>
 <h2>Preview</h2>
-<img src="images/md1.png" alt="Preview 1">
+<p align="center">
+<img src="images/md1.png" width="200" alt="Preview 1">
 <hr>
-<img src="images/md2.png" alt="Preview 2">
+<img src="images/md2.png" width="200" alt="Preview 2">
 <hr>
-<img src="images/md3.png" alt="Preview 3">
+<img src="images/md3.png" width="200" alt="Preview 3">
 <hr>
-<img src="images/md4.png" alt="Preview 4">
+<img src="images/md4.png" width="200" alt="Preview 4">
 <hr>
+</p>
 <h2>🛠️ Tech Stack</h2>
 <ul>
 <li><strong>Languages:</strong> HTML, CSS, JavaScript</li>
