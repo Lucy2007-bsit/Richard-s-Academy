@@ -15,13 +15,13 @@
 </ul>
 <h2>Preview</h2>
 <p align="center">
-<img src="images/md1.png" width="200" alt="Preview 1">
+<img width="1872" height="899" src="images/md1.png" width="200" alt="Preview 1">
 <hr>
-<img src="images/md2.png" width="200" alt="Preview 2">
+<img width="1872" height="899" src="images/md2.png" width="200" alt="Preview 2">
 <hr>
-<img src="images/md3.png" width="200" alt="Preview 3">
+<img width="1872" height="899" src="images/md3.png" width="200" alt="Preview 3">
 <hr>
-<img src="images/md4.png" width="200" alt="Preview 4">
+<img width="1872" height="899" src="images/md4.png" width="200" alt="Preview 4">
 <hr>
 </p>
 <h2>🛠️ Tech Stack</h2>
