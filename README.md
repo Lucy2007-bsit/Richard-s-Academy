@@ -18,12 +18,15 @@
 <img width="1872" height="899" src="images/md1.png" width="200" alt="Preview 1">
 <h2>Preview 2</h2>
 <hr>
+  
 <img width="1872" height="899" src="images/md2.png" width="200" alt="Preview 2">
-<hr>
 <h2>Preview 3</h2>
-<img width="1872" height="899" src="images/md3.png" width="200" alt="Preview 3">
 <hr>
+
+<img width="1872" height="899" src="images/md3.png" width="200" alt="Preview 3">
 <h2>Preview 4</h2>
+<hr>
+
 <img width="1872" height="899" src="images/md4.png" width="200" alt="Preview 4">
 <hr>
 </p>
