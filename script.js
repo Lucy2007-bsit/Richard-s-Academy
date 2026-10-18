@@ -239,6 +239,119 @@ const SUBJECT_FILES = {
     ],
   },
 
+
+  /* ── 2nd Year · 1st Semester ── */
+  'ADET211 [Major]': {
+    title: 'ADET211 — Applications Development & Emerging Technologies w/ Lab',
+    desc:  'Building applications and exploring emerging technologies.',
+    files: [
+    { label: 'Prelims 1',        path: 'files/2nd Year/1st Sem/ADET/PTOF/[studocu.com] - Arduino Microcontroller - A Comprehensive Overview for ADET Prelims.pdf',   fileType: 'pdf'  },
+    ],
+  },
+  'ARTA211': {
+    title: 'ARTA211 — Art Appreciation',
+    desc:  'Understanding and appreciating the arts.',
+    files: [],
+  },
+  'DSAA211 [Major]': {
+    title: 'DSAA211 — Data Structure and Algorithms w/ Lab',
+    desc:  'Organizing data efficiently and designing algorithms.',
+    files: [
+      { label: 'Prelims 1',        path: 'files/2nd Year/1st Sem/DSAA/P2F/DSAA Week2-Abstract Data Types.pdf',   fileType: 'pdf'  },
+      { label: 'Prelims 2',        path: 'files/2nd Year/1st Sem/DSAA/P2F/DSAA Week3-Data Structures.pdf',   fileType: 'pdf'  },
+      { label: 'Prelims 3',        path: 'files/2nd Year/1st Sem/DSAA/P2F/DSAA Week4-Array.pdf',   fileType: 'pdf'  },
+      { label: 'Prelims 4',        path: 'files/2nd Year/1st Sem/DSAA/P2F/Algorithms and Time Complexity.pdf',   fileType: 'pdf'  },
+
+      { label: 'Midterms 1',        path: 'files/2nd Year/1st Sem/DSAA/P2F/Week-7-Searching-and-Sorting-algorithm.pdf',   fileType: 'pdf'  },
+      { label: 'Midterms 2',        path: 'files/2nd Year/1st Sem/DSAA/P2F/Week-8-Bubble-and-Insertion-Sorting-compressed.pdf',   fileType: 'pdf'  },
+      { label: 'Midterms 3',        path: 'files/2nd Year/1st Sem/DSAA/P2F/DSAA-Week-9-Selection-and-Merge-Sorting (1).pdf',   fileType: 'pdf'  },
+      { label: 'Midterms 4',        path: 'files/2nd Year/1st Sem/DSAA/P2F/Week-10-Quick-and-Heap-Sorting-compressed.pdf',   fileType: 'pdf'  },
+    ],
+  },
+  'DSCR211 [Major]': {
+    title: 'DSCR211 — Discrete Structures 1',
+    desc:  'Logic, sets, relations, and the math behind computing.',
+    files: [
+      { label: 'Prelims 1',        path: 'files/2nd Year/1st Sem/DSCR/P2F/Introduction to Logic (1).pdf',   fileType: 'pdf'  },
+      { label: 'Prelims 2',        path: 'files/2nd Year/1st Sem/DSCR/P2F/Sets.pdf',   fileType: 'pdf'  },
+      { label: 'Prelims 3',        path: 'files/2nd Year/1st Sem/DSCR/P2F/Properties and Relationships of Set Theory PowerPoint.pdf',   fileType: 'pdf'  },
+      { label: 'Prelims 4',        path: 'files/2nd Year/1st Sem/DSCR/P2F/PERFORMING_OPERATIONS.pdf',   fileType: 'pdf'  },
+      { label: 'Prelims 5',        path: 'files/2nd Year/1st Sem/DSCR/P2F/DIVISION ALGORITHM.pdf',   fileType: 'pdf'  },
+      { label: 'Prelims 6',        path: 'files/2nd Year/1st Sem/DSCR/P2F/Number Theory.pdf',   fileType: 'pdf'  },
+
+      { label: 'Midterms 1',        path: 'files/2nd Year/1st Sem/DSCR/P2F/RELATIONS-&-FUNCTIONS-1.pdf',   fileType: 'pdf'  },
+      { label: 'Midterms 2',        path: 'files/2nd Year/1st Sem/DSCR/P2F/QUADRATIC FUNCTION.pdf',   fileType: 'pdf'  },
+      { label: 'Midterms 3',        path: 'files/2nd Year/1st Sem/DSCR/P2F/Algebra of Functions (1).pdf',   fileType: 'pdf'  },
+      { label: 'Midterms 4',        path: 'files/2nd Year/1st Sem/DSCR/P2F/Probability (1).pdf',   fileType: 'pdf'  },
+      { label: 'Midterms 5',        path: 'files/2nd Year/1st Sem/DSCR/P2F/Matrices.pdf',   fileType: 'pdf'  },
+      { label: 'Midterms 6',        path: 'files/2nd Year/1st Sem/DSCR/P2F/Matrix_Add&Sub.pdf',   fileType: 'pdf'  },
+      { label: 'Midterms 7',        path: 'files/2nd Year/1st Sem/DSCR/P2F/Matrix_Multiplication.pdf',   fileType: 'pdf'  },
+      { label: 'Midterms 8',        path: 'files/2nd Year/1st Sem/DSCR/P2F/Matrix_Transposition.pdf',   fileType: 'pdf'  },
+      { label: 'Midterms 9',        path: 'files/2nd Year/1st Sem/DSCR/P2F/Matrix_Inverse.pdf',   fileType: 'pdf'  },
+    ],
+  },
+  'IMGT211 [Major]': {
+    title: 'IMGT211 — Information Management w/ Lab',
+    desc:  'Databases, data modeling, and information systems.',
+    files: [
+      { label: 'Module 1',        path: 'files/2nd Year/1st Sem/IMGT/P2F/1-Introduction to MS SQL 2012.pdf',   fileType: 'pdf'  },
+      { label: 'Module 2',        path: 'files/2nd Year/1st Sem/IMGT/P2F/2-Intro. to DBMS&RDBMS.pdf',   fileType: 'pdf'  },
+      { label: 'Module 3',        path: 'files/2nd Year/1st Sem/IMGT/P2F/3-ERD.pdf',   fileType: 'pdf'  },
+      { label: 'Module 4',        path: 'files/2nd Year/1st Sem/IMGT/P2F/4-Data Types.pdf',   fileType: 'pdf'  },
+      { label: 'Module 5',        path: 'files/2nd Year/1st Sem/IMGT/P2F/5-Normalization.pdf',   fileType: 'pdf'  },
+      { label: 'Module 6',        path: 'files/2nd Year/1st Sem/IMGT/P2F/6-Basic Commands.pdf',   fileType: 'pdf'  },
+      { label: 'Module 7',        path: 'files/2nd Year/1st Sem/IMGT/P2F/7-Maintenance Database.pdf',   fileType: 'pdf'  },
+      { label: 'Module 8',        path: 'files/2nd Year/1st Sem/IMGT/P2F/IMGT211_Week8-DML.pdf',   fileType: 'pdf'  },
+      { label: 'Module 9',        path: 'files/2nd Year/1st Sem/IMGT/P2F/IMGT211_Week9-10-ERD-and-Operators.pdf',   fileType: 'pdf'  },
+      { label: 'Module 10',        path: 'files/2nd Year/1st Sem/IMGT/P2F/IMGT211_Week11-Functions.pdf',   fileType: 'pdf'  },
+      { label: 'Module 11',        path: 'files/2nd Year/1st Sem/IMGT/P2F/IMGT211_Week13-14-Joins.pdf',   fileType: 'pdf'  },
+      { label: 'Module 12',        path: 'files/2nd Year/1st Sem/IMGT/P2F/VIEWS.pdf',   fileType: 'pdf'  },
+      { label: 'Module 13',        path: 'files/2nd Year/1st Sem/IMGT/P2F/stored procedure.pdf',   fileType: 'pdf'  },
+      { label: 'Module 14',        path: 'files/2nd Year/1st Sem/IMGT/P2F/SQL-TERMS-REVIEWER-HUB.pdf',   fileType: 'pdf'  },
+    ],
+  },
+  'OOPR211 [Major]': {
+    title: 'OOPR211 — Object Oriented Programming 1 w/ Lab',
+    desc:  'Classes, objects, inheritance, and OOP design.',
+    files: [
+      { label: 'Prelims 1',        path: 'files/2nd Year/1st Sem/OOPR/P2F/OOPR211_Module 1.pdf',   fileType: 'pdf'  },
+      { label: 'Prelims 2',        path: 'files/2nd Year/1st Sem/OOPR/P2F/OOPR211_Module 2.pdf',   fileType: 'pdf'  },
+      { label: 'Prelims 3',        path: 'files/2nd Year/1st Sem/OOPR/P2F/OOPR211_Module 3.pdf',   fileType: 'pdf'  },
+      { label: 'Prelims 4',        path: 'files/2nd Year/1st Sem/OOPR/P2F/MODULE 3 THE BLUE ONE.pdf',   fileType: 'pdf'  },
+      { label: 'Prelims 5',        path: 'files/2nd Year/1st Sem/OOPR/P2F/OOPR211_Module 4.pdf',   fileType: 'pdf'  },
+      { label: 'Prelims 6',        path: 'files/2nd Year/1st Sem/OOPR/P2F/MODULE 4 THE BLUE ONE.pdf',   fileType: 'pdf'  },
+      { label: 'Prelims 7',        path: 'files/2nd Year/1st Sem/OOPR/P2F/PCODECHUM BASE REVIEWER FOR Q1.pdf',   fileType: 'pdf'  },
+      { label: 'Midterms 1',        path: 'files/2nd Year/1st Sem/OOPR/P2F/OOPR211_Module 5.pdf',   fileType: 'pdf'  },
+      { label: 'Midterms 2',        path: 'files/2nd Year/1st Sem/OOPR/P2F/OOPR211_Module 6.pdf',   fileType: 'pdf'  },
+    ],
+  },
+  'PHED223': {
+    title: 'PHED223 — Physical Activities Towards Health and Fitness 3',
+    desc:  'Physical fitness, sports, and wellness.',
+    files: [],
+  },
+  'VRTS113': {
+    title: 'VRTS113 — Veritas et Misericordia 3',
+    desc:  'Values formation, truth, and spiritual development.',
+    files: [],
+  },
+  'WBDV212 [Major]': {
+    title: 'WBDV212 — Web Development 2 w/ Lab',
+    desc:  'Advanced web development techniques.',
+    files: [
+      { label: 'Prelims 1',        path: 'files/2nd Year/1st Sem/WBDV/P2F/WBDV112_Week 2_Introduction to PHP.pdf',   fileType: 'pdf'  },
+      { label: 'Prelims 2',        path: 'files/2nd Year/1st Sem/WBDV/P2F/WBDV112_Week 3_PHP Comments, Constants, and Variables.pdf',   fileType: 'pdf'  },
+      { label: 'Prelims 3',        path: 'files/2nd Year/1st Sem/WBDV/P2F/WBDV112_Week 4_PHP Operators.pdf',   fileType: 'pdf'  },
+      { label: 'Prelims 4',        path: 'files/2nd Year/1st Sem/WBDV/P2F/WBV112_Week 5_Control Structures.pdf',   fileType: 'pdf'  },
+
+      { label: 'Prelims 5',        path: 'files/2nd Year/1st Sem/WBDV/P2F/WBDV PRELIM EXAM REVIEWER.pdf',   fileType: 'pdf'  },
+      { label: 'Prelims 6',        path: 'files/2nd Year/1st Sem/WBDV/P2F/PHP REVIEWER LAB EXAM.pdf',   fileType: 'pdf'  },
+
+      { label: 'Midterms 1',        path: 'files/2nd Year/1st Sem/WBDV/P2F/WBDV112_Week10_Array_illustration.pdf',   fileType: 'pdf'  },
+      { label: 'Midterms 2',        path: 'files/2nd Year/1st Sem/WBDV/P2F/WBDV112_Week11_Array function.pdf',   fileType: 'pdf'  },
+    ],
+  },
+
 };
 
 /* ── Active tab tracking ── */

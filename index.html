@@ -289,8 +289,66 @@
           </div>
           <div class="year-content" id="content-year2">
             <div class="semesters">
-              <div class="sem-block locked" aria-disabled="true"><div class="sem-header"><span class="sem-icon">📅</span><div><div class="sem-label">1st Semester</div><div class="sem-status">LOCKED</div></div><span class="sem-lock-icon">🔒</span></div></div>
+              <div class="sem-block available" id="sem-y2-s1" onclick="toggleSem('sem-y2-s1','subjects-y2-s1')" role="button" tabindex="0" aria-expanded="false" aria-controls="subjects-y2-s1"><div class="sem-header"><span class="sem-icon" aria-hidden="true">📅</span><div><div class="sem-label">1st Semester</div><div class="sem-status">AVAILABLE</div></div></div></div>
               <div class="sem-block locked" aria-disabled="true"><div class="sem-header"><span class="sem-icon">📅</span><div><div class="sem-label">2nd Semester</div><div class="sem-status">LOCKED</div></div><span class="sem-lock-icon">🔒</span></div></div>
+            </div>
+            <div class="subjects-wrap" id="subjects-y2-s1">
+              <div class="subjects-grid">
+                <div class="subject-card" onclick="openSubject('ADET211 [Major]')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">ADET211 [Major]</div><div class="subj-type">APPLICATIONS DEVELOPMENT & EMERGING TECHNOLOGIES W/ LAB</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('ARTA211')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">ARTA211</div><div class="subj-type">ART APPRECIATION</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('DSAA211 [Major]')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">DSAA211 [Major]</div><div class="subj-type">DATA STRUCTURE AND ALGORITHMS W/ LAB</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('DSCR211 [Major]')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">DSCR211 [Major]</div><div class="subj-type">DISCRETE STRUCTURES 1</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('IMGT211 [Major]')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">IMGT211 [Major]</div><div class="subj-type">INFORMATION MANAGEMENT W/ LAB</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('OOPR211 [Major]')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">OOPR211 [Major]</div><div class="subj-type">OBJECT ORIENTED PROGRAMMING 1 W/ LAB</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('PHED223')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">PHED223</div><div class="subj-type">PHYSICAL ACTIVITIES TOWARDS HEALTH AND FITNESS 3</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('VRTS113')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">VRTS113</div><div class="subj-type">VERITAS ET MISERICORDIA 3</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+                <div class="subject-card" onclick="openSubject('WBDV212 [Major]')" role="button" tabindex="0">
+                  <div class="subj-corner" aria-hidden="true"></div>
+                  <div class="subj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="subj-info"><div class="subj-code">WBDV212 [Major]</div><div class="subj-type">WEB DEVELOPMENT 2 W/ LAB</div></div>
+                  <span class="subj-arrow" aria-hidden="true">›</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
